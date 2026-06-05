@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "../design-system/index.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply bg-void text-foreground antialiased;
+    margin: 0;
+    background-color: var(--akshaya-void);
+    background-image: var(--akshaya-gradient-void);
+  }
+}

@@ -1,0 +1,50 @@
+/**
+ * AKSHAYA OS — Desktop / canvas environment
+ */
+
+@layer base {
+  .akshaya-os-canvas {
+    min-height: 100vh;
+    background: var(--akshaya-gradient-void);
+    background-color: var(--akshaya-void);
+  }
+
+  .akshaya-os-canvas::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgb(0 102 255 / 4%) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgb(168 85 247 / 4%) 0%, transparent 35%);
+    z-index: 0;
+  }
+
+  /* Subtle grid — research lab aesthetic */
+  .akshaya-os-grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+  }
+}
+
+@layer components {
+  .akshaya-focus-ring:focus-visible {
+    outline: 2px solid var(--akshaya-cyan-400);
+    outline-offset: 2px;
+  }
+
+  .akshaya-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--akshaya-border-default) 20%,
+      var(--akshaya-border-accent) 50%,
+      var(--akshaya-border-default) 80%,
+      transparent
+    );
+  }
+}

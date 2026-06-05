@@ -1,0 +1,154 @@
+/**
+ * AKSHAYA OS — Typography system
+ */
+
+@layer base {
+  html {
+    font-family: var(--akshaya-font-body);
+    font-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    color: var(--akshaya-text-primary);
+    line-height: var(--akshaya-leading-normal);
+    font-weight: var(--akshaya-weight-normal);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--akshaya-font-display);
+    font-weight: var(--akshaya-weight-semibold);
+    letter-spacing: var(--akshaya-tracking-tight);
+    line-height: var(--akshaya-leading-tight);
+    color: var(--akshaya-text-primary);
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--akshaya-font-mono);
+  }
+}
+
+@layer components {
+  /* Display — hero, OS title */
+  .akshaya-type-display-xl {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-6xl);
+    font-weight: var(--akshaya-weight-bold);
+    line-height: var(--akshaya-leading-tight);
+    letter-spacing: var(--akshaya-tracking-tight);
+  }
+
+  .akshaya-type-display-lg {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-5xl);
+    font-weight: var(--akshaya-weight-bold);
+    line-height: var(--akshaya-leading-tight);
+    letter-spacing: var(--akshaya-tracking-tight);
+  }
+
+  .akshaya-type-display-md {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-4xl);
+    font-weight: var(--akshaya-weight-semibold);
+    line-height: var(--akshaya-leading-tight);
+  }
+
+  /* Headings */
+  .akshaya-type-h1 {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-3xl);
+    font-weight: var(--akshaya-weight-semibold);
+    line-height: var(--akshaya-leading-snug);
+  }
+
+  .akshaya-type-h2 {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-2xl);
+    font-weight: var(--akshaya-weight-semibold);
+    line-height: var(--akshaya-leading-snug);
+  }
+
+  .akshaya-type-h3 {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xl);
+    font-weight: var(--akshaya-weight-medium);
+    line-height: var(--akshaya-leading-snug);
+  }
+
+  /* Body */
+  .akshaya-type-body-lg {
+    font-size: var(--akshaya-text-lg);
+    line-height: var(--akshaya-leading-relaxed);
+    color: var(--akshaya-text-secondary);
+  }
+
+  .akshaya-type-body {
+    font-size: var(--akshaya-text-base);
+    line-height: var(--akshaya-leading-normal);
+    color: var(--akshaya-text-secondary);
+  }
+
+  .akshaya-type-body-sm {
+    font-size: var(--akshaya-text-sm);
+    line-height: var(--akshaya-leading-normal);
+    color: var(--akshaya-text-muted);
+  }
+
+  .akshaya-type-caption {
+    font-size: var(--akshaya-text-xs);
+    line-height: var(--akshaya-leading-normal);
+    color: var(--akshaya-text-muted);
+    letter-spacing: var(--akshaya-tracking-wide);
+  }
+
+  /* Labels — UI chrome, badges */
+  .akshaya-type-label {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-semibold);
+    letter-spacing: var(--akshaya-tracking-widest);
+    text-transform: uppercase;
+    color: var(--akshaya-text-muted);
+  }
+
+  .akshaya-type-overline {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-medium);
+    letter-spacing: var(--akshaya-tracking-wider);
+    text-transform: uppercase;
+    color: var(--akshaya-cyan-400);
+  }
+
+  /* Gradient brand text */
+  .akshaya-type-gradient {
+    font-family: var(--akshaya-font-display);
+    background: var(--akshaya-gradient-brand);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* Mono — terminal, code */
+  .akshaya-type-mono {
+    font-family: var(--akshaya-font-mono);
+    font-size: var(--akshaya-text-sm);
+    line-height: var(--akshaya-leading-relaxed);
+  }
+
+  .akshaya-type-mono-sm {
+    font-family: var(--akshaya-font-mono);
+    font-size: var(--akshaya-text-xs);
+    line-height: var(--akshaya-leading-normal);
+  }
+}

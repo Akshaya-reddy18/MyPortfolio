@@ -1,0 +1,153 @@
+/**
+ * AKSHAYA OS — Terminal styles
+ */
+
+@layer components {
+  .akshaya-terminal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: var(--akshaya-font-mono);
+    font-size: var(--akshaya-text-sm);
+    line-height: var(--akshaya-leading-relaxed);
+    color: var(--akshaya-terminal-text);
+    background: var(--akshaya-terminal-bg);
+    border-radius: var(--akshaya-radius-lg);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .akshaya-terminal--scanlines::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgb(0 0 0 / 4%) 2px,
+      rgb(0 0 0 / 4%) 4px
+    );
+    opacity: 0.4;
+  }
+
+  .akshaya-terminal__header {
+    display: flex;
+    align-items: center;
+    gap: var(--akshaya-space-2);
+    padding: var(--akshaya-space-2) var(--akshaya-space-3);
+    background: rgb(0 0 0 / 45%);
+    border-bottom: 1px solid var(--akshaya-border-subtle);
+    font-size: var(--akshaya-text-xs);
+    color: var(--akshaya-text-muted);
+  }
+
+  .akshaya-terminal__header-badge {
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--akshaya-radius-sm);
+    background: rgb(0 102 255 / 15%);
+    border: 1px solid var(--akshaya-border-accent);
+    color: var(--akshaya-cyan-300);
+    letter-spacing: var(--akshaya-tracking-wide);
+  }
+
+  .akshaya-terminal__viewport {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--akshaya-space-4);
+    scrollbar-width: thin;
+    scrollbar-color: var(--akshaya-surface-3) transparent;
+  }
+
+  .akshaya-terminal__line {
+    margin: 0 0 var(--akshaya-space-1);
+    word-break: break-word;
+  }
+
+  .akshaya-terminal__line--system {
+    color: var(--akshaya-purple-300);
+  }
+
+  .akshaya-terminal__line--success {
+    color: var(--akshaya-success);
+  }
+
+  .akshaya-terminal__line--error {
+    color: var(--akshaya-error);
+  }
+
+  .akshaya-terminal__line--muted {
+    color: var(--akshaya-text-muted);
+  }
+
+  .akshaya-terminal__prompt {
+    color: var(--akshaya-terminal-prompt);
+    font-weight: var(--akshaya-weight-medium);
+  }
+
+  .akshaya-terminal__user {
+    color: var(--akshaya-blue-400);
+  }
+
+  .akshaya-terminal__host {
+    color: var(--akshaya-cyan-400);
+  }
+
+  .akshaya-terminal__path {
+    color: var(--akshaya-text-secondary);
+  }
+
+  .akshaya-terminal__cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--akshaya-terminal-cursor);
+    animation: akshaya-blink 1s step-end infinite;
+  }
+
+  .akshaya-terminal__input-row {
+    display: flex;
+    align-items: center;
+    gap: var(--akshaya-space-2);
+    padding: var(--akshaya-space-3) var(--akshaya-space-4);
+    border-top: 1px solid var(--akshaya-border-subtle);
+    background: rgb(0 0 0 / 35%);
+  }
+
+  .akshaya-terminal__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--akshaya-terminal-text);
+    caret-color: var(--akshaya-terminal-cursor);
+  }
+
+  .akshaya-terminal__input::selection {
+    background: var(--akshaya-terminal-selection);
+  }
+
+  .akshaya-terminal__input::placeholder {
+    color: var(--akshaya-text-disabled);
+  }
+
+  .akshaya-terminal__command {
+    color: var(--akshaya-text-primary);
+  }
+
+  .akshaya-terminal__flag {
+    color: var(--akshaya-purple-400);
+  }
+
+  .akshaya-terminal__output {
+    color: var(--akshaya-text-secondary);
+    padding-left: var(--akshaya-space-2);
+    border-left: 2px solid var(--akshaya-border-accent);
+    margin: var(--akshaya-space-2) 0 var(--akshaya-space-3);
+  }
+}

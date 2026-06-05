@@ -1,0 +1,282 @@
+/**
+ * AKSHAYA OS — Design Tokens
+ * Single source of truth for CSS custom properties.
+ * Dark mode only. Do not add light-theme variants.
+ */
+
+:root {
+  /* ─── Brand identity ─── */
+  --akshaya-brand-name: "AKSHAYA OS";
+  --akshaya-neural-core-avatar: url("/MYfaceInPortfolio.png");
+  --akshaya-neural-core-avatar-path: /MYfaceInPortfolio.png;
+
+  /* ─── Void surfaces (background hierarchy) ─── */
+  --akshaya-void: #030508;
+  --akshaya-void-elevated: #060a12;
+  --akshaya-surface-0: #0a0e17;
+  --akshaya-surface-1: #0f1520;
+  --akshaya-surface-2: #141c2b;
+  --akshaya-surface-3: #1a2436;
+  --akshaya-surface-overlay: rgb(10 14 23 / 72%);
+
+  /* ─── Electric blue ─── */
+  --akshaya-blue-50: #e6f4ff;
+  --akshaya-blue-100: #b3ddff;
+  --akshaya-blue-200: #80c6ff;
+  --akshaya-blue-300: #4dadff;
+  --akshaya-blue-400: #1a94ff;
+  --akshaya-blue-500: #0078f0;
+  --akshaya-blue-600: #0066ff;
+  --akshaya-blue-700: #0052cc;
+  --akshaya-blue-glow: rgb(0 102 255 / 45%);
+  --akshaya-blue-glow-strong: rgb(0 163 255 / 65%);
+
+  /* ─── Neon purple ─── */
+  --akshaya-purple-50: #f5f0ff;
+  --akshaya-purple-100: #e4d4ff;
+  --akshaya-purple-200: #c9a8ff;
+  --akshaya-purple-300: #ae7cff;
+  --akshaya-purple-400: #933fff;
+  --akshaya-purple-500: #a855f7;
+  --akshaya-purple-600: #9333ea;
+  --akshaya-purple-700: #7c3aed;
+  --akshaya-purple-glow: rgb(168 85 247 / 40%);
+  --akshaya-purple-glow-strong: rgb(192 132 252 / 55%);
+
+  /* ─── Soft cyan ─── */
+  --akshaya-cyan-50: #ecfeff;
+  --akshaya-cyan-100: #cffafe;
+  --akshaya-cyan-200: #a5f3fc;
+  --akshaya-cyan-300: #67e8f9;
+  --akshaya-cyan-400: #22d3ee;
+  --akshaya-cyan-500: #06b6d4;
+  --akshaya-cyan-600: #0891b2;
+  --akshaya-cyan-glow: rgb(34 211 238 / 35%);
+  --akshaya-cyan-glow-strong: rgb(103 232 249 / 50%);
+
+  /* ─── Semantic text ─── */
+  --akshaya-text-primary: #f0f4fc;
+  --akshaya-text-secondary: #a8b4cc;
+  --akshaya-text-muted: #6b7a94;
+  --akshaya-text-disabled: #4a5568;
+  --akshaya-text-inverse: #030508;
+  --akshaya-text-accent: var(--akshaya-cyan-300);
+  --akshaya-text-link: var(--akshaya-blue-400);
+  --akshaya-text-link-hover: var(--akshaya-cyan-300);
+
+  /* ─── Semantic borders ─── */
+  --akshaya-border-subtle: rgb(255 255 255 / 6%);
+  --akshaya-border-default: rgb(255 255 255 / 10%);
+  --akshaya-border-strong: rgb(255 255 255 / 16%);
+  --akshaya-border-accent: rgb(0 102 255 / 35%);
+  --akshaya-border-purple: rgb(168 85 247 / 35%);
+  --akshaya-border-cyan: rgb(34 211 238 / 30%);
+
+  /* ─── Status ─── */
+  --akshaya-success: #34d399;
+  --akshaya-warning: #fbbf24;
+  --akshaya-error: #f87171;
+  --akshaya-info: var(--akshaya-cyan-400);
+  --akshaya-online: #34d399;
+
+  /* ─── Glassmorphism ─── */
+  --akshaya-glass-bg: rgb(15 21 32 / 55%);
+  --akshaya-glass-bg-elevated: rgb(20 28 43 / 65%);
+  --akshaya-glass-bg-heavy: rgb(10 14 23 / 78%);
+  --akshaya-glass-blur: 16px;
+  --akshaya-glass-blur-strong: 24px;
+  --akshaya-glass-blur-subtle: 10px;
+  --akshaya-glass-saturate: 140%;
+  --akshaya-glass-border: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 14%) 0%,
+    rgb(0 102 255 / 22%) 40%,
+    rgb(168 85 247 / 18%) 70%,
+    rgb(255 255 255 / 8%) 100%
+  );
+  --akshaya-glass-highlight: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 8%) 0%,
+    transparent 48%
+  );
+  --akshaya-glass-shadow:
+    0 4px 24px rgb(0 0 0 / 40%),
+    0 0 0 1px rgb(255 255 255 / 5%) inset,
+    0 1px 0 rgb(255 255 255 / 6%) inset;
+
+  /* ─── Gradients ─── */
+  --akshaya-gradient-void: radial-gradient(
+    ellipse 120% 80% at 50% -20%,
+    rgb(0 102 255 / 12%) 0%,
+    transparent 55%
+  ),
+  radial-gradient(
+    ellipse 80% 50% at 100% 50%,
+    rgb(168 85 247 / 8%) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse 60% 40% at 0% 80%,
+    rgb(34 211 238 / 6%) 0%,
+    transparent 45%
+  ),
+  var(--akshaya-void);
+
+  --akshaya-gradient-brand: linear-gradient(
+    135deg,
+    var(--akshaya-blue-600) 0%,
+    var(--akshaya-purple-500) 50%,
+    var(--akshaya-cyan-400) 100%
+  );
+
+  --akshaya-gradient-neural-ring: conic-gradient(
+    from 180deg,
+    var(--akshaya-blue-600),
+    var(--akshaya-purple-500),
+    var(--akshaya-cyan-400),
+    var(--akshaya-blue-600)
+  );
+
+  --akshaya-gradient-mesh: linear-gradient(
+    180deg,
+    var(--akshaya-surface-0) 0%,
+    var(--akshaya-void) 100%
+  );
+
+  /* ─── Typography families ─── */
+  --akshaya-font-display: "Space Grotesk", system-ui, sans-serif;
+  --akshaya-font-body: "Inter", system-ui, sans-serif;
+  --akshaya-font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ─── Type scale (rem) ─── */
+  --akshaya-text-xs: 0.75rem;
+  --akshaya-text-sm: 0.875rem;
+  --akshaya-text-base: 1rem;
+  --akshaya-text-lg: 1.125rem;
+  --akshaya-text-xl: 1.25rem;
+  --akshaya-text-2xl: 1.5rem;
+  --akshaya-text-3xl: 1.875rem;
+  --akshaya-text-4xl: 2.25rem;
+  --akshaya-text-5xl: 3rem;
+  --akshaya-text-6xl: 3.75rem;
+
+  /* ─── Line heights ─── */
+  --akshaya-leading-tight: 1.15;
+  --akshaya-leading-snug: 1.35;
+  --akshaya-leading-normal: 1.5;
+  --akshaya-leading-relaxed: 1.65;
+
+  /* ─── Letter spacing ─── */
+  --akshaya-tracking-tight: -0.025em;
+  --akshaya-tracking-normal: 0;
+  --akshaya-tracking-wide: 0.04em;
+  --akshaya-tracking-wider: 0.08em;
+  --akshaya-tracking-widest: 0.14em;
+
+  /* ─── Font weights ─── */
+  --akshaya-weight-normal: 400;
+  --akshaya-weight-medium: 500;
+  --akshaya-weight-semibold: 600;
+  --akshaya-weight-bold: 700;
+
+  /* ─── Spacing scale (4px base) ─── */
+  --akshaya-space-0: 0;
+  --akshaya-space-1: 0.25rem;
+  --akshaya-space-2: 0.5rem;
+  --akshaya-space-3: 0.75rem;
+  --akshaya-space-4: 1rem;
+  --akshaya-space-5: 1.25rem;
+  --akshaya-space-6: 1.5rem;
+  --akshaya-space-8: 2rem;
+  --akshaya-space-10: 2.5rem;
+  --akshaya-space-12: 3rem;
+  --akshaya-space-16: 4rem;
+
+  /* ─── Radius ─── */
+  --akshaya-radius-xs: 0.25rem;
+  --akshaya-radius-sm: 0.375rem;
+  --akshaya-radius-md: 0.5rem;
+  --akshaya-radius-lg: 0.75rem;
+  --akshaya-radius-xl: 1rem;
+  --akshaya-radius-2xl: 1.25rem;
+  --akshaya-radius-3xl: 1.5rem;
+  --akshaya-radius-full: 9999px;
+
+  /* ─── Shadows ─── */
+  --akshaya-shadow-sm: 0 2px 8px rgb(0 0 0 / 35%);
+  --akshaya-shadow-md: 0 8px 24px rgb(0 0 0 / 45%);
+  --akshaya-shadow-lg: 0 16px 48px rgb(0 0 0 / 55%);
+  --akshaya-shadow-glow-blue: 0 0 24px var(--akshaya-blue-glow);
+  --akshaya-shadow-glow-purple: 0 0 24px var(--akshaya-purple-glow);
+  --akshaya-shadow-glow-cyan: 0 0 20px var(--akshaya-cyan-glow);
+  --akshaya-shadow-window: 0 24px 64px rgb(0 0 0 / 55%), 0 0 0 1px var(--akshaya-border-default);
+
+  /* ─── Z-index scale ─── */
+  --akshaya-z-base: 0;
+  --akshaya-z-dock: 40;
+  --akshaya-z-window: 50;
+  --akshaya-z-window-active: 60;
+  --akshaya-z-overlay: 70;
+  --akshaya-z-modal: 80;
+  --akshaya-z-toast: 90;
+  --akshaya-z-neural-core: 100;
+
+  /* ─── Motion durations ─── */
+  --akshaya-duration-instant: 80ms;
+  --akshaya-duration-fast: 150ms;
+  --akshaya-duration-normal: 250ms;
+  --akshaya-duration-slow: 400ms;
+  --akshaya-duration-slower: 600ms;
+  --akshaya-duration-pulse: 2.4s;
+  --akshaya-duration-glow: 3s;
+  --akshaya-duration-orbit: 8s;
+
+  /* ─── Motion easing ─── */
+  --akshaya-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --akshaya-ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --akshaya-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --akshaya-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── Taskbar ─── */
+  --akshaya-taskbar-height: 2.75rem;
+
+  /* ─── Window chrome ─── */
+  --akshaya-window-titlebar-height: 2.5rem;
+  --akshaya-window-radius: var(--akshaya-radius-xl);
+  --akshaya-window-min-width: 20rem;
+  --akshaya-window-min-height: 12rem;
+
+  /* ─── Neural node ─── */
+  --akshaya-node-size-sm: 2.5rem;
+  --akshaya-node-size-md: 3.5rem;
+  --akshaya-node-size-lg: 5rem;
+  --akshaya-node-size-core: 7.5rem;
+  --akshaya-node-edge-color: rgb(0 102 255 / 45%);
+  --akshaya-node-edge-active: rgb(34 211 238 / 70%);
+
+  /* ─── Terminal ─── */
+  --akshaya-terminal-bg: rgb(3 5 8 / 92%);
+  --akshaya-terminal-text: var(--akshaya-cyan-300);
+  --akshaya-terminal-prompt: var(--akshaya-purple-400);
+  --akshaya-terminal-cursor: var(--akshaya-blue-400);
+  --akshaya-terminal-selection: rgb(0 102 255 / 25%);
+
+  /* ─── Chatbot ─── */
+  --akshaya-chat-user-bg: rgb(0 102 255 / 18%);
+  --akshaya-chat-user-border: var(--akshaya-border-accent);
+  --akshaya-chat-assistant-bg: var(--akshaya-glass-bg-elevated);
+  --akshaya-chat-assistant-border: var(--akshaya-border-purple);
+  --akshaya-chat-bubble-radius: var(--akshaya-radius-xl);
+
+  /* ─── shadcn/ui bridge (dark-only) ─── */
+  --background: var(--akshaya-void);
+  --foreground: var(--akshaya-text-primary);
+  --card: var(--akshaya-surface-1);
+  --card-foreground: var(--akshaya-text-primary);
+  --primary: var(--akshaya-blue-600);
+  --primary-foreground: var(--akshaya-text-primary);
+  --muted: var(--akshaya-surface-2);
+  --muted-foreground: var(--akshaya-text-muted);
+  --border: var(--akshaya-border-default);
+  --radius: var(--akshaya-radius-lg);
+}

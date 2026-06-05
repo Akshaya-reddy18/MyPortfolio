@@ -1,0 +1,91 @@
+/**
+ * AKSHAYA OS — Glassmorphism styles
+ */
+
+@layer components {
+  .akshaya-glass {
+    background: var(--akshaya-glass-bg);
+    backdrop-filter: blur(var(--akshaya-glass-blur)) saturate(var(--akshaya-glass-saturate));
+    -webkit-backdrop-filter: blur(var(--akshaya-glass-blur)) saturate(var(--akshaya-glass-saturate));
+    border: 1px solid var(--akshaya-border-default);
+    box-shadow: var(--akshaya-glass-shadow);
+    border-radius: var(--akshaya-radius-xl);
+  }
+
+  .akshaya-glass-elevated {
+    background: var(--akshaya-glass-bg-elevated);
+    backdrop-filter: blur(var(--akshaya-glass-blur-strong)) saturate(var(--akshaya-glass-saturate));
+    -webkit-backdrop-filter: blur(var(--akshaya-glass-blur-strong)) saturate(var(--akshaya-glass-saturate));
+    border: 1px solid var(--akshaya-border-strong);
+    box-shadow: var(--akshaya-shadow-md), var(--akshaya-glass-shadow);
+    border-radius: var(--akshaya-radius-xl);
+  }
+
+  .akshaya-glass-heavy {
+    background: var(--akshaya-glass-bg-heavy);
+    backdrop-filter: blur(var(--akshaya-glass-blur-strong)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--akshaya-glass-blur-strong)) saturate(120%);
+    border: 1px solid var(--akshaya-border-subtle);
+    box-shadow: var(--akshaya-shadow-lg);
+    border-radius: var(--akshaya-radius-xl);
+  }
+
+  .akshaya-glass-subtle {
+    background: rgb(255 255 255 / 3%);
+    backdrop-filter: blur(var(--akshaya-glass-blur-subtle));
+    -webkit-backdrop-filter: blur(var(--akshaya-glass-blur-subtle));
+    border: 1px solid var(--akshaya-border-subtle);
+    border-radius: var(--akshaya-radius-lg);
+  }
+
+  /* Gradient border via pseudo-element */
+  .akshaya-glass-border-gradient {
+    position: relative;
+    background: var(--akshaya-glass-bg);
+    backdrop-filter: blur(var(--akshaya-glass-blur)) saturate(var(--akshaya-glass-saturate));
+    -webkit-backdrop-filter: blur(var(--akshaya-glass-blur)) saturate(var(--akshaya-glass-saturate));
+    border-radius: var(--akshaya-radius-xl);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .akshaya-glass-border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--akshaya-glass-border);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+  }
+
+  .akshaya-glass-highlight-top::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--akshaya-glass-highlight);
+    pointer-events: none;
+  }
+
+  /* Dock / panel variants */
+  .akshaya-glass-dock {
+    background: rgb(10 14 23 / 72%);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-top: 1px solid var(--akshaya-border-default);
+    box-shadow: 0 -8px 32px rgb(0 0 0 / 35%);
+  }
+
+  .akshaya-glass-panel {
+    background: var(--akshaya-glass-bg);
+    backdrop-filter: blur(var(--akshaya-glass-blur));
+    -webkit-backdrop-filter: blur(var(--akshaya-glass-blur));
+    border-right: 1px solid var(--akshaya-border-subtle);
+  }
+}

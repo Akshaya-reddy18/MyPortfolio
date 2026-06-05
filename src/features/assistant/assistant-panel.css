@@ -1,0 +1,322 @@
+.neural-assistant-fab-root {
+  position: fixed;
+  right: 1.25rem;
+  bottom: calc(var(--akshaya-taskbar-height, 3rem) + 1rem);
+  z-index: calc(var(--akshaya-z-modal) + 2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.neural-assistant-fab-root__panel {
+  pointer-events: auto;
+  width: min(24rem, calc(100vw - 2rem));
+  height: min(32rem, calc(100dvh - var(--akshaya-taskbar-height, 3rem) - 6rem));
+}
+
+.neural-assistant-fab {
+  pointer-events: auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem 0.65rem 0.85rem;
+  border-radius: var(--akshaya-radius-full);
+  border: 1px solid var(--akshaya-border-purple);
+  background: linear-gradient(135deg, rgb(88 28 135 / 85%), rgb(0 102 255 / 75%));
+  color: var(--akshaya-text-primary);
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 45%),
+    0 0 24px var(--akshaya-purple-glow);
+  cursor: pointer;
+  transition:
+    transform var(--akshaya-duration-fast) var(--akshaya-ease-spring),
+    box-shadow var(--akshaya-duration-fast) var(--akshaya-ease-out);
+}
+
+.neural-assistant-fab:hover {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow:
+    0 12px 36px rgb(0 0 0 / 50%),
+    0 0 32px var(--akshaya-purple-glow);
+}
+
+.neural-assistant-fab--active {
+  border-color: var(--akshaya-cyan-400);
+}
+
+.neural-assistant-fab__ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid rgb(34 211 238 / 35%);
+  animation: akshaya-pulse 2.4s ease-in-out infinite;
+}
+
+.neural-assistant-fab__pulse {
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgb(168 85 247 / 25%), transparent 70%);
+  animation: akshaya-glow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.neural-assistant-fab__label {
+  font-family: var(--akshaya-font-display);
+  font-size: var(--akshaya-text-xs);
+  font-weight: var(--akshaya-weight-semibold);
+  letter-spacing: var(--akshaya-tracking-widest);
+}
+
+.neural-assistant-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--akshaya-radius-xl);
+  overflow: hidden;
+  background: rgb(8 12 22 / 92%);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--akshaya-border-purple);
+  box-shadow:
+    0 24px 64px rgb(0 0 0 / 55%),
+    0 0 40px var(--akshaya-purple-glow);
+}
+
+.neural-assistant-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--akshaya-border-subtle);
+  background: linear-gradient(180deg, rgb(168 85 247 / 12%), transparent);
+}
+
+.neural-assistant-panel__identity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.neural-assistant-panel__avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-image: var(--akshaya-neural-core-avatar);
+  background-size: cover;
+  background-position: center top;
+  border: 2px solid var(--akshaya-border-purple);
+  box-shadow: 0 0 12px var(--akshaya-purple-glow);
+  flex-shrink: 0;
+}
+
+.neural-assistant-panel__title {
+  font-family: var(--akshaya-font-display);
+  font-size: var(--akshaya-text-sm);
+  font-weight: var(--akshaya-weight-semibold);
+  color: var(--akshaya-text-primary);
+}
+
+.neural-assistant-panel__subtitle {
+  font-size: var(--akshaya-text-xs);
+  color: var(--akshaya-cyan-400);
+}
+
+.neural-assistant-panel__actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.neural-assistant-panel__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--akshaya-radius-md);
+  border: 1px solid var(--akshaya-border-subtle);
+  background: rgb(255 255 255 / 4%);
+  color: var(--akshaya-text-secondary);
+  cursor: pointer;
+}
+
+.neural-assistant-panel__icon-btn:hover {
+  color: var(--akshaya-text-primary);
+  border-color: var(--akshaya-border-cyan);
+}
+
+.neural-assistant-panel__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.neural-assistant-panel__bubble {
+  max-width: 92%;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--akshaya-radius-lg);
+  font-size: var(--akshaya-text-sm);
+  line-height: var(--akshaya-leading-relaxed);
+  white-space: pre-wrap;
+}
+
+.neural-assistant-panel__bubble--user {
+  align-self: flex-end;
+  background: rgb(0 102 255 / 18%);
+  border: 1px solid var(--akshaya-border-accent);
+  color: var(--akshaya-text-primary);
+}
+
+.neural-assistant-panel__bubble--assistant {
+  align-self: flex-start;
+  background: rgb(168 85 247 / 10%);
+  border: 1px solid var(--akshaya-border-purple);
+  color: var(--akshaya-text-secondary);
+}
+
+.neural-assistant-panel__bubble--system {
+  align-self: center;
+  max-width: 100%;
+  font-size: var(--akshaya-text-xs);
+  text-align: center;
+  color: var(--akshaya-purple-300);
+  border: 1px dashed var(--akshaya-border-purple);
+  background: rgb(168 85 247 / 8%);
+}
+
+.neural-assistant-panel__typing {
+  display: flex;
+  gap: 0.3rem;
+  align-self: flex-start;
+  padding: 0.5rem 0.75rem;
+}
+
+.neural-assistant-panel__typing span {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--akshaya-purple-400);
+  animation: akshaya-typing 1.2s ease-in-out infinite;
+}
+
+.neural-assistant-panel__typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.neural-assistant-panel__typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.neural-assistant-panel__prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem 0.65rem;
+}
+
+.neural-assistant-panel__prompt {
+  padding: 0.35rem 0.7rem;
+  font-size: var(--akshaya-text-xs);
+  border-radius: var(--akshaya-radius-full);
+  border: 1px solid var(--akshaya-border-cyan);
+  background: rgb(34 211 238 / 8%);
+  color: var(--akshaya-cyan-300);
+  cursor: pointer;
+}
+
+.neural-assistant-panel__prompt:hover {
+  background: rgb(34 211 238 / 15%);
+}
+
+.neural-assistant-panel__composer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+  border-top: 1px solid var(--akshaya-border-subtle);
+  background: rgb(0 0 0 / 28%);
+}
+
+.neural-assistant-panel__input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--akshaya-radius-lg);
+  border: 1px solid var(--akshaya-border-default);
+  background: var(--akshaya-surface-1);
+  color: var(--akshaya-text-primary);
+  font-family: var(--akshaya-font-body);
+  font-size: var(--akshaya-text-sm);
+  resize: none;
+  outline: none;
+}
+
+.neural-assistant-panel__input:focus {
+  border-color: var(--akshaya-purple-400);
+  box-shadow: 0 0 0 2px var(--akshaya-purple-glow);
+}
+
+.neural-assistant-panel__composer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.neural-assistant-panel__voice,
+.neural-assistant-panel__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--akshaya-radius-lg);
+  border: none;
+  cursor: pointer;
+}
+
+.neural-assistant-panel__voice {
+  background: rgb(255 255 255 / 6%);
+  border: 1px solid var(--akshaya-border-subtle);
+  color: var(--akshaya-text-secondary);
+}
+
+.neural-assistant-panel__voice--active {
+  color: var(--akshaya-cyan-300);
+  border-color: var(--akshaya-border-cyan);
+  box-shadow: 0 0 12px var(--akshaya-cyan-glow);
+  animation: akshaya-pulse 1.2s ease-in-out infinite;
+}
+
+.neural-assistant-panel__voice-fallback {
+  font-size: var(--akshaya-text-xs);
+  color: var(--akshaya-text-muted);
+}
+
+.neural-assistant-panel__send {
+  background: var(--akshaya-gradient-brand);
+  color: var(--akshaya-text-primary);
+}
+
+@media (max-width: 768px) {
+  .neural-assistant-fab-root {
+    right: 0.85rem;
+    bottom: calc(var(--akshaya-mobile-nav-height, 4rem) + 0.85rem);
+  }
+
+  .neural-assistant-fab-root__panel {
+    width: calc(100vw - 1.5rem);
+    height: min(70dvh, 28rem);
+  }
+
+  .neural-assistant-fab__label {
+    display: none;
+  }
+}

@@ -1,0 +1,113 @@
+/**
+ * AKSHAYA OS — Tailwind CSS v4 theme extension
+ * Maps design tokens to Tailwind utilities.
+ */
+
+@theme inline {
+  /* Colors — surfaces */
+  --color-void: var(--akshaya-void);
+  --color-void-elevated: var(--akshaya-void-elevated);
+  --color-surface-0: var(--akshaya-surface-0);
+  --color-surface-1: var(--akshaya-surface-1);
+  --color-surface-2: var(--akshaya-surface-2);
+  --color-surface-3: var(--akshaya-surface-3);
+
+  /* Colors — electric blue */
+  --color-blue-50: var(--akshaya-blue-50);
+  --color-blue-100: var(--akshaya-blue-100);
+  --color-blue-200: var(--akshaya-blue-200);
+  --color-blue-300: var(--akshaya-blue-300);
+  --color-blue-400: var(--akshaya-blue-400);
+  --color-blue-500: var(--akshaya-blue-500);
+  --color-blue-600: var(--akshaya-blue-600);
+  --color-blue-700: var(--akshaya-blue-700);
+  --color-blue-glow: var(--akshaya-blue-glow);
+
+  /* Colors — neon purple */
+  --color-purple-50: var(--akshaya-purple-50);
+  --color-purple-100: var(--akshaya-purple-100);
+  --color-purple-200: var(--akshaya-purple-200);
+  --color-purple-300: var(--akshaya-purple-300);
+  --color-purple-400: var(--akshaya-purple-400);
+  --color-purple-500: var(--akshaya-purple-500);
+  --color-purple-600: var(--akshaya-purple-600);
+  --color-purple-700: var(--akshaya-purple-700);
+  --color-purple-glow: var(--akshaya-purple-glow);
+
+  /* Colors — soft cyan */
+  --color-cyan-50: var(--akshaya-cyan-50);
+  --color-cyan-100: var(--akshaya-cyan-100);
+  --color-cyan-200: var(--akshaya-cyan-200);
+  --color-cyan-300: var(--akshaya-cyan-300);
+  --color-cyan-400: var(--akshaya-cyan-400);
+  --color-cyan-500: var(--akshaya-cyan-500);
+  --color-cyan-600: var(--akshaya-cyan-600);
+  --color-cyan-glow: var(--akshaya-cyan-glow);
+
+  /* Semantic */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--akshaya-cyan-400);
+  --color-accent-muted: var(--akshaya-text-secondary);
+  --color-success: var(--akshaya-success);
+  --color-warning: var(--akshaya-warning);
+  --color-error: var(--akshaya-error);
+  --color-online: var(--akshaya-online);
+
+  /* Typography */
+  --font-sans: var(--akshaya-font-body);
+  --font-display: var(--akshaya-font-display);
+  --font-mono: var(--akshaya-font-mono);
+
+  --text-xs: var(--akshaya-text-xs);
+  --text-sm: var(--akshaya-text-sm);
+  --text-base: var(--akshaya-text-base);
+  --text-lg: var(--akshaya-text-lg);
+  --text-xl: var(--akshaya-text-xl);
+  --text-2xl: var(--akshaya-text-2xl);
+  --text-3xl: var(--akshaya-text-3xl);
+  --text-4xl: var(--akshaya-text-4xl);
+  --text-5xl: var(--akshaya-text-5xl);
+  --text-6xl: var(--akshaya-text-6xl);
+
+  /* Radius */
+  --radius-xs: var(--akshaya-radius-xs);
+  --radius-sm: var(--akshaya-radius-sm);
+  --radius-md: var(--akshaya-radius-md);
+  --radius-lg: var(--akshaya-radius-lg);
+  --radius-xl: var(--akshaya-radius-xl);
+  --radius-2xl: var(--akshaya-radius-2xl);
+  --radius-3xl: var(--akshaya-radius-3xl);
+  --radius-full: var(--akshaya-radius-full);
+
+  /* Shadows */
+  --shadow-akshaya-sm: var(--akshaya-shadow-sm);
+  --shadow-akshaya-md: var(--akshaya-shadow-md);
+  --shadow-akshaya-lg: var(--akshaya-shadow-lg);
+  --shadow-glow-blue: var(--akshaya-shadow-glow-blue);
+  --shadow-glow-purple: var(--akshaya-shadow-glow-purple);
+  --shadow-glow-cyan: var(--akshaya-shadow-glow-cyan);
+  --shadow-window: var(--akshaya-shadow-window);
+
+  /* Blur (glass) */
+  --blur-akshaya: var(--akshaya-glass-blur);
+  --blur-akshaya-strong: var(--akshaya-glass-blur-strong);
+  --blur-akshaya-subtle: var(--akshaya-glass-blur-subtle);
+
+  /* Animations */
+  --animate-akshaya-pulse: akshaya-pulse var(--akshaya-duration-pulse) ease-in-out infinite;
+  --animate-akshaya-glow: akshaya-glow var(--akshaya-duration-glow) ease-in-out infinite;
+  --animate-akshaya-orbit: akshaya-orbit var(--akshaya-duration-orbit) linear infinite;
+  --animate-akshaya-float: akshaya-float 4s var(--akshaya-ease-in-out) infinite;
+  --animate-akshaya-fade-in: akshaya-fade-in var(--akshaya-duration-normal) var(--akshaya-ease-out) forwards;
+  --animate-akshaya-slide-up: akshaya-slide-up var(--akshaya-duration-slow) var(--akshaya-ease-out) forwards;
+  --animate-akshaya-scan: akshaya-scan 3s linear infinite;
+  --animate-akshaya-blink: akshaya-blink 1s step-end infinite;
+}

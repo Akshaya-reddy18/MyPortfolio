@@ -1,0 +1,561 @@
+/**
+ * AKSHAYA OS — Desktop shell & taskbar
+ */
+
+@layer components {
+  .akshaya-desktop-shell {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    position: relative;
+    background: var(--akshaya-void);
+  }
+
+  .akshaya-desktop-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    height: 2.25rem;
+    padding: 0 var(--akshaya-space-4);
+    border-bottom: 1px solid var(--akshaya-border-subtle);
+    z-index: var(--akshaya-z-dock);
+  }
+
+  .akshaya-desktop-surface {
+    flex: 1;
+    min-height: 0;
+    z-index: var(--akshaya-z-base);
+  }
+
+  /* Managed windows — positioned by inline styles */
+  .akshaya-window--managed {
+    position: absolute;
+    min-width: var(--akshaya-window-min-width);
+    min-height: var(--akshaya-window-min-height);
+    touch-action: none;
+  }
+
+  .akshaya-window--maximized {
+    border-radius: 0;
+  }
+
+  .akshaya-window--maximized .akshaya-window__titlebar {
+    cursor: default;
+  }
+
+  .akshaya-window__titlebar--draggable {
+    cursor: grab;
+  }
+
+  .akshaya-window__titlebar--draggable:active {
+    cursor: grabbing;
+  }
+
+  .akshaya-window__traffic-btn {
+    padding: 0;
+    cursor: pointer;
+    transition: transform var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      filter var(--akshaya-duration-fast) var(--akshaya-ease-out);
+  }
+
+  .akshaya-window__traffic-btn:hover {
+    transform: scale(1.12);
+    filter: brightness(1.1);
+  }
+
+  .akshaya-window__traffic-btn:focus-visible {
+    outline: 2px solid var(--akshaya-cyan-400);
+    outline-offset: 2px;
+  }
+
+  /* Taskbar */
+  .akshaya-taskbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--akshaya-space-3);
+    flex-shrink: 0;
+    height: var(--akshaya-taskbar-height, 3rem);
+    padding: 0 var(--akshaya-space-3);
+    background: rgb(10 14 23 / 78%);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-top: 1px solid var(--akshaya-border-default);
+    box-shadow: 0 -8px 32px rgb(0 0 0 / 40%);
+    z-index: var(--akshaya-z-dock);
+  }
+
+  .akshaya-taskbar__section {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .akshaya-taskbar__section--center {
+    justify-content: center;
+  }
+
+  .akshaya-taskbar__section--end {
+    justify-content: flex-end;
+    padding-left: var(--akshaya-space-2);
+  }
+
+  .akshaya-taskbar__app-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--akshaya-radius-lg);
+    color: var(--akshaya-cyan-300);
+    background: rgb(255 255 255 / 4%);
+    border: 1px solid var(--akshaya-border-subtle);
+    transition:
+      background var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      border-color var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      box-shadow var(--akshaya-duration-fast) var(--akshaya-ease-out);
+  }
+
+  .akshaya-taskbar__app-btn:hover {
+    background: rgb(34 211 238 / 10%);
+    border-color: var(--akshaya-border-cyan);
+  }
+
+  .akshaya-taskbar__app-btn--running {
+    border-color: var(--akshaya-border-accent);
+    box-shadow: 0 0 12px var(--akshaya-blue-glow);
+  }
+
+  .akshaya-taskbar__window-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--akshaya-space-2);
+    height: 2rem;
+    padding: 0 var(--akshaya-space-3);
+    max-width: 10rem;
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-medium);
+    letter-spacing: var(--akshaya-tracking-wide);
+    color: var(--akshaya-text-secondary);
+    background: rgb(255 255 255 / 4%);
+    border: 1px solid var(--akshaya-border-subtle);
+    border-radius: var(--akshaya-radius-md);
+    transition:
+      background var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      border-color var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      color var(--akshaya-duration-fast) var(--akshaya-ease-out);
+  }
+
+  .akshaya-taskbar__window-btn:hover {
+    background: rgb(255 255 255 / 8%);
+    color: var(--akshaya-text-primary);
+  }
+
+  .akshaya-taskbar__window-btn--active {
+    color: var(--akshaya-text-primary);
+    background: rgb(0 102 255 / 14%);
+    border-color: var(--akshaya-border-accent);
+    box-shadow: 0 0 12px var(--akshaya-blue-glow);
+  }
+
+  .akshaya-taskbar__window-btn--minimized {
+    opacity: 0.65;
+    border-style: dashed;
+  }
+
+  .akshaya-desktop-topbar__avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center top;
+    border: 1px solid rgb(34 211 238 / 35%);
+    box-shadow: 0 0 12px var(--akshaya-cyan-glow);
+  }
+
+  .akshaya-taskbar__dock {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.55rem;
+    padding: 0.15rem 0.35rem;
+  }
+
+  .akshaya-taskbar__app-btn {
+    position: relative;
+    width: 2.65rem;
+    height: 2.65rem;
+    transform-origin: bottom center;
+    transition:
+      transform var(--akshaya-duration-fast) var(--akshaya-ease-spring),
+      background var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      border-color var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      box-shadow var(--akshaya-duration-fast) var(--akshaya-ease-out);
+  }
+
+  .akshaya-taskbar__app-btn:hover {
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 8px 20px rgb(0 0 0 / 35%);
+  }
+
+  .akshaya-taskbar__app-btn--active {
+    transform: translateY(-4px) scale(1.05);
+    border-color: var(--akshaya-cyan-400);
+    box-shadow:
+      0 0 16px var(--akshaya-blue-glow),
+      0 8px 20px rgb(0 0 0 / 30%);
+  }
+
+  .akshaya-taskbar__app-btn--active::after {
+    content: "";
+    position: absolute;
+    bottom: -0.35rem;
+    left: 50%;
+    width: 0.35rem;
+    height: 0.35rem;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: var(--akshaya-cyan-400);
+    box-shadow: 0 0 8px var(--akshaya-cyan-glow);
+  }
+
+  .akshaya-taskbar__app-tooltip {
+    position: absolute;
+    bottom: calc(100% + 0.45rem);
+    left: 50%;
+    transform: translateX(-50%) scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.625rem;
+    white-space: nowrap;
+    border-radius: var(--akshaya-radius-sm);
+    background: rgb(8 12 20 / 92%);
+    border: 1px solid var(--akshaya-border-subtle);
+    color: var(--akshaya-text-secondary);
+    transition: opacity var(--akshaya-duration-fast), transform var(--akshaya-duration-fast);
+  }
+
+  .akshaya-taskbar__app-btn:hover .akshaya-taskbar__app-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  .akshaya-window--application {
+    position: relative;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: rgb(4 6 12 / 98%);
+  }
+
+  .akshaya-window--application .akshaya-window__titlebar {
+    height: 3rem;
+    background: rgb(0 0 0 / 55%);
+    border-bottom: 1px solid var(--akshaya-border-accent);
+  }
+
+  .akshaya-window--application .akshaya-window__title--application {
+    font-size: var(--akshaya-text-base);
+    letter-spacing: var(--akshaya-tracking-wide);
+  }
+
+  .akshaya-window__back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid var(--akshaya-border-cyan);
+    background: rgb(34 211 238 / 8%);
+    color: var(--akshaya-cyan-300);
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-medium);
+    cursor: pointer;
+    transition:
+      background var(--akshaya-duration-fast),
+      box-shadow var(--akshaya-duration-fast);
+  }
+
+  .akshaya-window__back-btn:hover {
+    background: rgb(34 211 238 / 15%);
+    box-shadow: var(--akshaya-shadow-glow-cyan);
+  }
+
+  .akshaya-window__body--application {
+    background: transparent;
+  }
+
+  .akshaya-window--floating {
+    border-radius: var(--akshaya-radius-xl);
+    box-shadow:
+      0 20px 50px rgb(0 0 0 / 45%),
+      0 0 0 1px rgb(255 255 255 / 6%);
+  }
+
+  /* Ambient neural background */
+  .neural-ambient__pathways {
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgb(0 102 255 / 12%), transparent 35%),
+      radial-gradient(circle at 80% 70%, rgb(168 85 247 / 10%), transparent 40%),
+      linear-gradient(115deg, transparent 48%, rgb(34 211 238 / 6%) 49%, transparent 51%),
+      linear-gradient(245deg, transparent 48%, rgb(168 85 247 / 5%) 49%, transparent 51%);
+    animation: neural-ambient-drift 24s ease-in-out infinite alternate;
+  }
+
+  .neural-ambient__glow {
+    position: absolute;
+    width: 28rem;
+    height: 28rem;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    animation: akshaya-glow 8s ease-in-out infinite;
+  }
+
+  .neural-ambient__glow--left {
+    left: -8rem;
+    top: 20%;
+    background: var(--akshaya-blue-glow);
+  }
+
+  .neural-ambient__glow--right {
+    right: -8rem;
+    bottom: 10%;
+    background: var(--akshaya-purple-glow);
+    animation-delay: 2s;
+  }
+
+  .neural-ambient__particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--akshaya-cyan-400);
+    opacity: 0.45;
+    animation: neural-particle-float linear infinite;
+  }
+
+  .neural-ambient__packet {
+    position: absolute;
+    left: -10%;
+    width: 2.5rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--akshaya-cyan-400), transparent);
+    opacity: 0.5;
+    animation: neural-packet-travel linear infinite;
+  }
+
+  .neural-ambient__signal {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgb(34 211 238 / 20%);
+    animation: neural-signal-pulse 4s ease-out infinite;
+  }
+
+  .neural-ambient__signal--a {
+    left: 50%;
+    top: 42%;
+    width: 8rem;
+    height: 8rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .neural-ambient__signal--b {
+    left: 50%;
+    top: 42%;
+    width: 12rem;
+    height: 12rem;
+    transform: translate(-50%, -50%);
+    animation-delay: 1.2s;
+  }
+
+  .neural-ambient--dim {
+    opacity: 0.35;
+  }
+
+  @keyframes neural-ambient-drift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(12px, -8px, 0); }
+  }
+
+  @keyframes neural-particle-float {
+    0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.2; }
+    50% { transform: translate3d(0, -18px, 0); opacity: 0.7; }
+  }
+
+  @keyframes neural-packet-travel {
+    from { transform: translateX(0); opacity: 0; }
+    15% { opacity: 0.7; }
+    to { transform: translateX(120vw); opacity: 0; }
+  }
+
+  @keyframes neural-signal-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+  }
+
+  /* Mobile OS */
+  .mobile-os-shell {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    background: var(--akshaya-void);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-os-shell__ambient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 0%, rgb(0 102 255 / 14%), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgb(168 85 247 / 10%), transparent 45%);
+    pointer-events: none;
+  }
+
+  .mobile-os-shell__home,
+  .mobile-os-shell__app {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mobile-os-shell__hero {
+    padding: 2rem 1.25rem 1.5rem;
+    text-align: center;
+  }
+
+  .mobile-os-shell__hero-avatar {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background-image: var(--akshaya-neural-core-avatar);
+    background-size: cover;
+    background-position: center top;
+    border: 2px solid var(--akshaya-border-cyan);
+    box-shadow: 0 0 20px var(--akshaya-cyan-glow);
+  }
+
+  .mobile-os-shell__hero-title {
+    font-family: var(--akshaya-font-display);
+    font-size: 1.5rem;
+    color: var(--akshaya-text-primary);
+  }
+
+  .mobile-os-shell__hero-subtitle {
+    margin-top: 0.35rem;
+    font-size: var(--akshaya-text-sm);
+    color: var(--akshaya-text-muted);
+  }
+
+  .mobile-os-shell__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0 1rem 1rem;
+    overflow-y: auto;
+  }
+
+  .mobile-os-shell__tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0.75rem;
+    border-radius: var(--akshaya-radius-xl);
+    border: 1px solid var(--akshaya-border-subtle);
+    background: rgb(255 255 255 / 4%);
+    color: var(--akshaya-text-secondary);
+  }
+
+  .mobile-os-shell__tile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--akshaya-radius-lg);
+    background: rgb(0 102 255 / 12%);
+    border: 1px solid var(--akshaya-border-accent);
+    color: var(--akshaya-cyan-300);
+  }
+
+  .mobile-os-shell__tile-label {
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-medium);
+  }
+
+  .mobile-os-shell__app-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--akshaya-border-subtle);
+    background: rgb(0 0 0 / 40%);
+  }
+
+  .mobile-os-shell__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid var(--akshaya-border-cyan);
+    background: rgb(34 211 238 / 8%);
+    color: var(--akshaya-cyan-300);
+    font-size: var(--akshaya-text-xs);
+  }
+
+  .mobile-os-shell__app-title {
+    text-align: center;
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-sm);
+    color: var(--akshaya-text-primary);
+  }
+
+  .mobile-os-shell__app-body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .mobile-os-shell__nav {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.25rem;
+    padding: 0.5rem 0.35rem calc(0.5rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--akshaya-border-default);
+    background: rgb(8 12 20 / 92%);
+    backdrop-filter: blur(16px);
+    z-index: 2;
+  }
+
+  .mobile-os-shell__nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--akshaya-radius-md);
+    color: var(--akshaya-text-muted);
+    font-size: 0.625rem;
+    min-width: 3.5rem;
+  }
+
+  .mobile-os-shell__nav-btn--active {
+    color: var(--akshaya-cyan-300);
+    background: rgb(0 102 255 / 12%);
+  }
+}

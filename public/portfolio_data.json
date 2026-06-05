@@ -1,0 +1,472 @@
+{
+  "schemaVersion": "2.0.0",
+  "meta": {
+    "lastUpdated": "2026-06-05",
+    "locale": "en"
+  },
+  "neuralCore": {
+    "profile": {
+      "name": "YOUR_NAME",
+      "role": "ML Engineer",
+      "headline": "B.Tech in Computer Science (AI & ML)",
+      "tagline": "Neural Core · Configure in portfolio_data.json",
+      "location": "YOUR_LOCATION",
+      "timezone": "Asia/Kolkata",
+      "avatar": {
+        "src": "/MYfaceInPortfolio.png",
+        "alt": "Profile avatar"
+      },
+      "status": {
+        "label": "Available for opportunities",
+        "state": "available"
+      },
+      "bio": "B.Tech in Computer Science (AI & ML), CGPA: 9.42, Vignan Institute of Technology and Science."
+    },
+    "hero": {
+      "eyebrow": "Neural OS",
+      "title": "AI Systems Portfolio",
+      "subtitle": "ML Engineer · Full-Stack · MLOps",
+      "description": "Explore projects, experience, and skills through a JSON-driven neural operating system.",
+      "highlights": [
+        "6 featured projects",
+        "7 skill domains",
+        "RAG, agents, and production ML"
+      ],
+      "primaryAction": {
+        "type": "open-app",
+        "appId": "resume",
+        "label": "Open Resume"
+      },
+      "secondaryAction": {
+        "type": "open-app",
+        "appId": "contact",
+        "label": "Contact"
+      }
+    },
+    "currentFocus": {
+      "title": "Current Focus",
+      "summary": "Update neuralCore.currentFocus in portfolio_data.json",
+      "items": [
+        {
+          "label": "Configure profile",
+          "detail": "Replace YOUR_NAME, contact, and social links",
+          "priority": 1
+        }
+      ]
+    }
+  },
+  "contact": {
+    "email": "you@example.com",
+    "availability": "Open to opportunities",
+    "responseTime": "Within 48 hours",
+    "preferredChannels": [
+      "email"
+    ]
+  },
+  "social": [
+    {
+      "id": "github",
+      "platform": "GitHub",
+      "url": "https://github.com/YOUR_HANDLE",
+      "handle": "@YOUR_HANDLE",
+      "icon": "github",
+      "primary": true
+    },
+    {
+      "id": "linkedin",
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/YOUR_HANDLE",
+      "handle": "YOUR_HANDLE",
+      "icon": "linkedin"
+    }
+  ],
+  "resume": {
+    "title": "Resume",
+    "file": {
+      "url": "/resume.pdf",
+      "mimeType": "application/pdf",
+      "label": "Download PDF"
+    },
+    "lastUpdated": "2026-06-05",
+    "languages": [
+      "en"
+    ]
+  },
+  "assistant": {
+    "id": "neural-assistant",
+    "name": "NEURAL",
+    "persona": "Portfolio copilot for ML engineering work",
+    "greeting": "Neural assistant online. Ask about projects, skills, or experience.",
+    "disclaimer": "Frontend-only assistant — responses use loaded portfolio data.",
+    "suggestedPrompts": [
+      {
+        "label": "Top AI projects",
+        "prompt": "Summarize my strongest AI systems projects and their impact."
+      },
+      {
+        "label": "ML stack",
+        "prompt": "What ML frameworks and tools do I use?"
+      }
+    ],
+    "context": {
+      "includeSections": [
+        "project",
+        "experience",
+        "skill"
+      ],
+      "maxEntriesPerSection": 12
+    }
+  },
+  "terminal": {
+    "shell": {
+      "user": "neural",
+      "host": "portfolio",
+      "promptSuffix": "~$"
+    },
+    "welcomeLines": [
+      "Neural OS 2.0.0",
+      "Type 'help' to list commands."
+    ],
+    "commands": [
+      {
+        "name": "help",
+        "aliases": [
+          "?"
+        ],
+        "description": "List available commands",
+        "usage": "help",
+        "action": {
+          "type": "builtin",
+          "command": "help"
+        }
+      },
+      {
+        "name": "projects",
+        "description": "Open projects module",
+        "usage": "projects",
+        "action": {
+          "type": "navigate",
+          "target": "project"
+        }
+      },
+      {
+        "name": "skills",
+        "description": "Open skills module",
+        "usage": "skills",
+        "action": {
+          "type": "navigate",
+          "target": "skill"
+        }
+      },
+      {
+        "name": "experience",
+        "description": "Open experience module",
+        "usage": "experience",
+        "action": {
+          "type": "navigate",
+          "target": "experience"
+        }
+      },
+      {
+        "name": "resume",
+        "description": "Launch Resume app",
+        "usage": "resume",
+        "action": {
+          "type": "open-app",
+          "appId": "resume"
+        }
+      },
+      {
+        "name": "contact",
+        "description": "Launch Contact app",
+        "usage": "contact",
+        "action": {
+          "type": "open-app",
+          "appId": "contact"
+        }
+      },
+      {
+        "name": "whoami",
+        "description": "Show profile identity",
+        "usage": "whoami",
+        "action": {
+          "type": "builtin",
+          "command": "whoami"
+        }
+      },
+      {
+        "name": "clear",
+        "description": "Clear terminal output",
+        "usage": "clear",
+        "action": {
+          "type": "builtin",
+          "command": "clear"
+        }
+      }
+    ]
+  },
+  "applications": {
+    "contact": {
+      "id": "contact",
+      "title": "Contact",
+      "icon": "mail",
+      "description": "Send a message",
+      "enabled": true,
+      "window": {
+        "defaultSize": {
+          "width": 480,
+          "height": 560
+        }
+      },
+      "form": {
+        "submitAction": {
+          "type": "mailto",
+          "to": "{{contact.email}}",
+          "subject": "Portfolio inquiry from Neural OS"
+        },
+        "fields": [
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text",
+            "required": true
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "required": true
+          },
+          {
+            "name": "message",
+            "label": "Message",
+            "type": "textarea",
+            "required": true,
+            "rows": 6
+          }
+        ]
+      }
+    },
+    "resume": {
+      "id": "resume",
+      "title": "Resume",
+      "icon": "file-text",
+      "description": "View and download resume",
+      "enabled": true,
+      "window": {
+        "defaultSize": {
+          "width": 720,
+          "height": 840
+        }
+      },
+      "viewer": {
+        "mode": "embed",
+        "assetRef": "resume",
+        "allowDownload": true
+      }
+    },
+    "assistant": {
+      "id": "assistant",
+      "title": "NEURAL Assistant",
+      "icon": "bot",
+      "description": "AI copilot powered by portfolio context",
+      "enabled": true,
+      "window": {
+        "defaultSize": {
+          "width": 560,
+          "height": 640
+        }
+      },
+      "configRef": "assistant"
+    }
+  },
+  "entries": [
+    {
+      "type": "project",
+      "title": "ResearchPilot AI",
+      "tags": [
+        "RAG",
+        "LLM",
+        "NLP",
+        "AI Systems"
+      ],
+      "stack": [
+        "LLaMA-3.3-70B",
+        "LangChain",
+        "ChromaDB",
+        "FastAPI",
+        "React"
+      ],
+      "description": "A scalable AI-powered research assistant that processes large volumes of documents using retrieval-augmented generation.",
+      "impact": "Processed 1000+ documents and improved contextual response accuracy by 35%.",
+      "details": "Built a RAG pipeline using semantic chunking and vector embeddings. Integrated LLaMA models for contextual generation and evaluated retrieval quality using precision-recall metrics.",
+      "challenges": "Maintaining retrieval relevance and handling diverse document structures.",
+      "solutions": "Optimized embedding strategies and semantic search pipelines.",
+      "category": "AI Systems"
+    },
+    {
+      "type": "project",
+      "title": "PulseConnect",
+      "tags": [
+        "AI",
+        "Healthcare",
+        "Multi-Agent Systems",
+        "Prediction"
+      ],
+      "stack": [
+        "Firebase",
+        "Scikit-learn",
+        "Python"
+      ],
+      "description": "AI-driven blood demand forecasting and donor matching system.",
+      "impact": "Reduced emergency response time by 40% and improved donor matching efficiency by 30%.",
+      "details": "Designed a multi-agent system using real-time Firebase streams. Implemented ensemble regression models with hyperparameter tuning for accurate predictions.",
+      "category": "AI + Healthcare"
+    },
+    {
+      "type": "project",
+      "title": "StartupConnect",
+      "tags": [
+        "Full Stack",
+        "AI Matching",
+        "Web Platform"
+      ],
+      "stack": [
+        "React",
+        "TypeScript",
+        "Supabase",
+        "REST APIs"
+      ],
+      "description": "A full-stack platform that connects users with relevant opportunities using AI-based matching.",
+      "impact": "Improved relevant job-role matching by 25% for 100+ users.",
+      "details": "Built role-based authentication and implemented similarity-based matching algorithms for personalized recommendations.",
+      "category": "Full Stack"
+    },
+    {
+      "type": "project",
+      "title": "DevOps CI/CD Automation",
+      "tags": [
+        "DevOps",
+        "CI/CD",
+        "Automation"
+      ],
+      "stack": [
+        "Python",
+        "GitHub Actions",
+        "Docker",
+        "Linux"
+      ],
+      "description": "Automated CI/CD pipelines with integrated testing and monitoring.",
+      "impact": "Improved deployment reliability and enabled early defect detection.",
+      "details": "Integrated API validation scripts into CI/CD pipelines to ensure continuous system health and consistent deployments across environments.",
+      "category": "DevOps"
+    },
+    {
+      "type": "project",
+      "title": "MarketNest",
+      "tags": [
+        "MERN",
+        "Marketplace",
+        "Automation"
+      ],
+      "stack": [
+        "MongoDB",
+        "Express",
+        "React",
+        "Node.js",
+        "Selenium"
+      ],
+      "description": "A fashion marketplace platform with automated testing workflows.",
+      "impact": "Ensured UI consistency and reliable user experience through automation.",
+      "details": "Automated end-to-end user flows using Selenium WebDriver, covering form validation and navigation testing.",
+      "category": "Full Stack"
+    },
+    {
+      "type": "project",
+      "title": "Pizza Sales Analytics Dashboard",
+      "tags": [
+        "Power BI",
+        "Business Intelligence",
+        "Data Analytics",
+        "SQL"
+      ],
+      "stack": [
+        "Power BI",
+        "SQL Server",
+        "Power Query",
+        "DAX"
+      ],
+      "description": "Developed an interactive business intelligence dashboard to analyze pizza sales performance, customer purchasing trends, and revenue metrics.",
+      "impact": "Analyzed 50,000+ sales records and enabled data-driven decision making through KPI tracking and trend analysis.",
+      "details": "Imported and transformed sales data from SQL Server using Power Query. Designed interactive dashboards with KPI cards, revenue trends, category-wise sales analysis, top-selling pizzas, order patterns, and customer insights. Implemented DAX measures for revenue, average order value, total orders, and sales growth analysis.",
+      "challenges": "Handling data inconsistencies and optimizing dashboard performance for large datasets.",
+      "solutions": "Applied data cleaning and transformation techniques in Power Query and created optimized DAX calculations for faster reporting.",
+      "category": "Data Analytics"
+    },
+    {
+      "type": "experience",
+      "title": "Full-Stack Developer Intern",
+      "company": "Nirvaha Wellness LLP",
+      "duration": "Oct 2025 – Dec 2025",
+      "details": "Developed full-stack applications using React, TypeScript, Node.js, and MongoDB. Built 10+ REST APIs with JWT authentication, reducing latency by 30% and improving security."
+    },
+    {
+      "type": "experience",
+      "title": "AI/ML Intern",
+      "company": "Cothon Solutions",
+      "duration": "Mar 2025 – May 2025",
+      "details": "Built an XGBoost airfare prediction model achieving 98.76% R². Developed a CNN-based deepfake detection system with 84.67% accuracy and 0.91 ROC-AUC on 10,000+ images."
+    },
+    {
+      "type": "experience",
+      "title": "AI/ML Intern",
+      "company": "Edunet Foundation (Microsoft, SAP & AICTE)",
+      "duration": "Jan 2025 – Feb 2025",
+      "details": "Developed SVM-based disease prediction models trained on 5000+ records achieving 85% accuracy. Built real-time dashboards using Streamlit."
+    },
+    {
+      "type": "skill",
+      "name": "Programming",
+      "details": "Python, JavaScript, TypeScript, Java, C, SQL"
+    },
+    {
+      "type": "skill",
+      "name": "Machine Learning",
+      "details": "Scikit-learn, XGBoost, TensorFlow, Keras, CNN, NLP, Ensemble Methods"
+    },
+    {
+      "type": "skill",
+      "name": "Data Analysis",
+      "details": "Pandas, NumPy, Seaborn, Matplotlib, EDA, Statistical Analysis"
+    },
+    {
+      "type": "skill",
+      "name": "Web Development",
+      "details": "React, Next.js, Node.js, Express, Django, REST APIs"
+    },
+    {
+      "type": "skill",
+      "name": "Databases",
+      "details": "MongoDB, MySQL, Firebase, Supabase, ChromaDB"
+    },
+    {
+      "type": "skill",
+      "name": "DevOps & Tools",
+      "details": "Git, GitHub Actions, Docker, Linux, Streamlit"
+    },
+    {
+      "type": "skill",
+      "name": "Core Concepts",
+      "details": "Data Structures and Algorithms, OOP, System Design, Probability, Statistics, Distributed Systems"
+    },
+    {
+      "type": "achievement",
+      "title": "Hackathons & Certifications",
+      "details": "Participant in Smart India Hackathon and national-level hackathons. HackerRank: Python (Gold), Java (Silver), C (Silver). NPTEL certified in Java and C."
+    },
+    {
+      "type": "education",
+      "details": "B.Tech in Computer Science (AI & ML), CGPA: 9.42, Vignan Institute of Technology and Science."
+    }
+  ]
+}

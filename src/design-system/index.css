@@ -1,0 +1,15 @@
+/**
+ * AKSHAYA OS Design System
+ * Import order matters: tokens → theme → systems → motion
+ */
+@import "./tokens.css";
+@import "./tailwind-theme.css";
+@import "./typography.css";
+@import "./canvas.css";
+@import "./glass.css";
+@import "./windows.css";
+@import "./neural-nodes.css";
+@import "./terminal.css";
+@import "./chatbot.css";
+@import "./motion.css";
+@import "./design-polish.css";

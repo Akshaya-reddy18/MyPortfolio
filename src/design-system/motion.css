@@ -1,0 +1,170 @@
+/**
+ * AKSHAYA OS — Keyframes & motion utilities
+ */
+
+@keyframes akshaya-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.88;
+  }
+}
+
+@keyframes akshaya-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes akshaya-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes akshaya-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes akshaya-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes akshaya-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes akshaya-scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes akshaya-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes akshaya-dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+@keyframes akshaya-typing {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes akshaya-shimmer {
+  from {
+    background-position: 200% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+@layer utilities {
+  .akshaya-animate-pulse {
+    animation: akshaya-pulse var(--akshaya-duration-pulse) ease-in-out infinite;
+  }
+
+  .akshaya-animate-glow {
+    animation: akshaya-glow var(--akshaya-duration-glow) ease-in-out infinite;
+  }
+
+  .akshaya-animate-orbit {
+    animation: akshaya-orbit var(--akshaya-duration-orbit) linear infinite;
+  }
+
+  .akshaya-animate-float {
+    animation: akshaya-float 4s var(--akshaya-ease-in-out) infinite;
+  }
+
+  .akshaya-animate-fade-in {
+    animation: akshaya-fade-in var(--akshaya-duration-normal) var(--akshaya-ease-out) forwards;
+  }
+
+  .akshaya-animate-slide-up {
+    animation: akshaya-slide-up var(--akshaya-duration-slow) var(--akshaya-ease-out) forwards;
+  }
+
+  .akshaya-transition-fast {
+    transition-duration: var(--akshaya-duration-fast);
+    transition-timing-function: var(--akshaya-ease-out);
+  }
+
+  .akshaya-transition-normal {
+    transition-duration: var(--akshaya-duration-normal);
+    transition-timing-function: var(--akshaya-ease-out);
+  }
+
+  .akshaya-transition-slow {
+    transition-duration: var(--akshaya-duration-slow);
+    transition-timing-function: var(--akshaya-ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .akshaya-animate-pulse,
+    .akshaya-animate-glow,
+    .akshaya-animate-orbit,
+    .akshaya-animate-float,
+    .akshaya-neural-core__ring,
+    .akshaya-terminal__cursor,
+    .akshaya-edge--animated {
+      animation: none !important;
+    }
+
+    .akshaya-animate-fade-in,
+    .akshaya-animate-slide-up {
+      animation-duration: 0.01ms !important;
+    }
+  }
+}

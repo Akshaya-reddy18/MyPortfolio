@@ -1,0 +1,157 @@
+/**
+ * AKSHAYA OS — Neural network node styles
+ * Neural core uses /MYfaceInPortfolio.png
+ */
+
+@layer components {
+  /* ─── Base node ─── */
+  .akshaya-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--akshaya-radius-full);
+    background: var(--akshaya-glass-bg);
+    border: 1px solid var(--akshaya-border-accent);
+    box-shadow: var(--akshaya-shadow-glow-blue);
+    transition:
+      transform var(--akshaya-duration-fast) var(--akshaya-ease-out),
+      box-shadow var(--akshaya-duration-normal) var(--akshaya-ease-out),
+      border-color var(--akshaya-duration-fast) var(--akshaya-ease-out);
+  }
+
+  .akshaya-node--sm {
+    width: var(--akshaya-node-size-sm);
+    height: var(--akshaya-node-size-sm);
+  }
+
+  .akshaya-node--md {
+    width: var(--akshaya-node-size-md);
+    height: var(--akshaya-node-size-md);
+  }
+
+  .akshaya-node--lg {
+    width: var(--akshaya-node-size-lg);
+    height: var(--akshaya-node-size-lg);
+  }
+
+  .akshaya-node:hover {
+    transform: scale(1.06);
+    border-color: var(--akshaya-cyan-400);
+    box-shadow: var(--akshaya-shadow-glow-cyan);
+  }
+
+  .akshaya-node--selected {
+    border-color: var(--akshaya-purple-400);
+    box-shadow: var(--akshaya-shadow-glow-purple);
+  }
+
+  .akshaya-node--pulse {
+    animation: akshaya-pulse var(--akshaya-duration-pulse) ease-in-out infinite;
+  }
+
+  /* ─── Neural core (identity avatar) ─── */
+  .akshaya-neural-core {
+    position: relative;
+    width: var(--akshaya-node-size-core);
+    height: var(--akshaya-node-size-core);
+    z-index: var(--akshaya-z-neural-core);
+  }
+
+  .akshaya-neural-core__ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--akshaya-radius-full);
+    background: var(--akshaya-gradient-neural-ring);
+    animation: akshaya-orbit var(--akshaya-duration-orbit) linear infinite;
+    opacity: 0.85;
+  }
+
+  .akshaya-neural-core__ring-inner {
+    position: absolute;
+    inset: 3px;
+    border-radius: var(--akshaya-radius-full);
+    background: var(--akshaya-void);
+  }
+
+  .akshaya-neural-core__avatar {
+    position: absolute;
+    inset: 6px;
+    border-radius: var(--akshaya-radius-full);
+    background-image: var(--akshaya-neural-core-avatar);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    border: 2px solid var(--akshaya-border-cyan);
+    box-shadow:
+      0 0 32px var(--akshaya-blue-glow),
+      0 0 48px var(--akshaya-purple-glow),
+      inset 0 0 24px rgb(0 102 255 / 15%);
+  }
+
+  .akshaya-neural-core__glow {
+    position: absolute;
+    inset: -20%;
+    border-radius: var(--akshaya-radius-full);
+    background: radial-gradient(
+      circle,
+      var(--akshaya-blue-glow) 0%,
+      var(--akshaya-purple-glow) 40%,
+      transparent 70%
+    );
+    animation: akshaya-glow var(--akshaya-duration-glow) ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .akshaya-neural-core__label {
+    position: absolute;
+    left: 50%;
+    bottom: calc(-1 * var(--akshaya-space-8));
+    transform: translateX(-50%);
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-semibold);
+    letter-spacing: var(--akshaya-tracking-widest);
+    text-transform: uppercase;
+    color: var(--akshaya-cyan-300);
+    white-space: nowrap;
+    text-shadow: 0 0 12px var(--akshaya-cyan-glow);
+  }
+
+  /* ─── React Flow edge styling hooks ─── */
+  .akshaya-edge {
+    stroke: var(--akshaya-node-edge-color);
+    stroke-width: 1.5;
+  }
+
+  .akshaya-edge--active {
+    stroke: var(--akshaya-node-edge-active);
+    stroke-width: 2;
+    filter: drop-shadow(0 0 6px var(--akshaya-cyan-glow));
+  }
+
+  .akshaya-edge--animated {
+    stroke-dasharray: 6 4;
+    animation: akshaya-dash 1.2s linear infinite;
+  }
+
+  /* ─── Node type accents ─── */
+  .akshaya-node--project {
+    border-color: rgb(0 102 255 / 50%);
+  }
+
+  .akshaya-node--experience {
+    border-color: rgb(168 85 247 / 50%);
+  }
+
+  .akshaya-node--skill {
+    border-color: rgb(34 211 238 / 45%);
+  }
+
+  .akshaya-node--hub {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
+}
