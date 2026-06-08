@@ -2,6 +2,7 @@ export type {
   AchievementEntry,
   EducationEntry,
   ExperienceEntry,
+  ExperienceRoleProject,
   PortfolioAction,
   PortfolioCollections,
   PortfolioData,

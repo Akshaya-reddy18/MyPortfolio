@@ -4,20 +4,26 @@ import {
   type FormEvent,
   type KeyboardEvent,
 } from "react";
-import { Mic, MicOff, Minimize2, Send, X } from "lucide-react";
+import { Mic, MicOff, Minimize2, Send, Volume2, VolumeX, X } from "lucide-react";
 import { useAssistantChat } from "@/hooks/use-assistant-chat";
 import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
+import { useSpeechSynthesis } from "@/hooks/use-speech-synthesis";
 import type { PortfolioDocument } from "@/types";
+import { TypingReveal } from "./TypingReveal";
 import "./assistant-panel.css";
 
 interface AssistantPanelProps {
   document: PortfolioDocument;
+  voiceRequestTick?: number;
+  onListeningChange?: (isListening: boolean) => void;
   onClose: () => void;
   onMinimize: () => void;
 }
 
 export function AssistantPanel({
   document,
+  voiceRequestTick = 0,
+  onListeningChange,
   onClose,
   onMinimize,
 }: AssistantPanelProps) {
@@ -31,6 +37,7 @@ export function AssistantPanel({
   } = useAssistantChat(document);
 
   const messagesRef = useRef<HTMLDivElement>(null);
+  const lastSpokenIdRef = useRef<string | null>(null);
 
   const { isSupported, isListening, startListening } = useSpeechRecognition(
     (transcript) => {
@@ -39,12 +46,45 @@ export function AssistantPanel({
     },
   );
 
+  const {
+    isSupported: ttsSupported,
+    isSpeaking,
+    speechEnabled,
+    toggleSpeech,
+    speak,
+    stop,
+  } = useSpeechSynthesis();
+
   useEffect(() => {
     const container = messagesRef.current;
     if (container) {
       container.scrollTop = container.scrollHeight;
     }
   }, [messages, isThinking]);
+
+  useEffect(() => {
+    onListeningChange?.(isListening);
+  }, [isListening, onListeningChange]);
+
+  useEffect(() => {
+    if (!voiceRequestTick || !isSupported || isThinking) return;
+    startListening();
+  }, [voiceRequestTick, isSupported, isThinking, startListening]);
+
+  useEffect(() => {
+    const last = messages[messages.length - 1];
+    if (
+      !last ||
+      last.role !== "assistant" ||
+      isThinking ||
+      last.id === lastSpokenIdRef.current
+    ) {
+      return;
+    }
+
+    lastSpokenIdRef.current = last.id;
+    speak(last.content);
+  }, [messages, isThinking, speak]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -65,10 +105,38 @@ export function AssistantPanel({
           <div className="neural-assistant-panel__avatar" aria-hidden />
           <div>
             <p className="neural-assistant-panel__title">{assistantConfig.name}</p>
-            <p className="neural-assistant-panel__subtitle">System AI · Control Center</p>
+            <p className="neural-assistant-panel__subtitle">
+              {isListening
+                ? "Listening…"
+                : isSpeaking
+                  ? "Speaking…"
+                  : `Copilot for ${document.neuralCore.profile.name}`}
+            </p>
           </div>
         </div>
         <div className="neural-assistant-panel__actions">
+          {ttsSupported && (
+            <button
+              type="button"
+              className={
+                speechEnabled
+                  ? "neural-assistant-panel__icon-btn neural-assistant-panel__icon-btn--active"
+                  : "neural-assistant-panel__icon-btn"
+              }
+              onClick={() => {
+                if (speechEnabled) stop();
+                toggleSpeech();
+              }}
+              aria-label={speechEnabled ? "Disable voice output" : "Enable voice output"}
+              aria-pressed={speechEnabled}
+            >
+              {speechEnabled ? (
+                <Volume2 className="h-4 w-4" />
+              ) : (
+                <VolumeX className="h-4 w-4" />
+              )}
+            </button>
+          )}
           <button
             type="button"
             className="neural-assistant-panel__icon-btn"
@@ -88,21 +156,41 @@ export function AssistantPanel({
         </div>
       </header>
 
+      <div className="neural-assistant-panel__system-status" aria-live="polite">
+        <span className="system-status-item">
+          <span className="status-indicator status-indicator--active" />
+          CORE: ONLINE
+        </span>
+        <span className="system-status-item">
+          {isSpeaking ? "VOICE: ACTIVE" : "SESSION: ACTIVE"}
+        </span>
+        <span className="system-status-item">CONTEXT: LOADED</span>
+      </div>
+
       <div ref={messagesRef} className="neural-assistant-panel__messages" aria-live="polite">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={
-              message.role === "system"
-                ? "neural-assistant-panel__bubble neural-assistant-panel__bubble--system"
-                : message.role === "user"
-                  ? "neural-assistant-panel__bubble neural-assistant-panel__bubble--user"
-                  : "neural-assistant-panel__bubble neural-assistant-panel__bubble--assistant"
-            }
-          >
-            {message.content}
-          </div>
-        ))}
+        {messages.map((message, index) => {
+          const isLatestAssistant =
+            message.role === "assistant" && index === messages.length - 1 && !isThinking;
+
+          return (
+            <div
+              key={message.id}
+              className={
+                message.role === "system"
+                  ? "neural-assistant-panel__bubble neural-assistant-panel__bubble--system"
+                  : message.role === "user"
+                    ? "neural-assistant-panel__bubble neural-assistant-panel__bubble--user"
+                    : "neural-assistant-panel__bubble neural-assistant-panel__bubble--assistant"
+              }
+            >
+              {isLatestAssistant ? (
+                <TypingReveal text={message.content} active />
+              ) : (
+                message.content
+              )}
+            </div>
+          );
+        })}
 
         {isThinking && (
           <div className="neural-assistant-panel__typing" aria-label="Assistant is typing">
@@ -135,7 +223,7 @@ export function AssistantPanel({
           value={input}
           onChange={(event) => setInput(event.target.value)}
           onKeyDown={handleComposerKeyDown}
-          placeholder="Ask NEURAL anything about this portfolio…"
+          placeholder={`Ask about ${document.neuralCore.profile.name}'s work…`}
           rows={2}
           disabled={isThinking}
           aria-label="Message NEURAL Assistant"

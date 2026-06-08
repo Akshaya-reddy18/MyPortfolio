@@ -1,6 +1,6 @@
 import {
   BaseEdge,
-  getSmoothStepPath,
+  getBezierPath,
   type EdgeProps,
 } from "@xyflow/react";
 import { memo } from "react";
@@ -17,42 +17,68 @@ function NeuralEdgeComponent({
   selected,
   data,
 }: EdgeProps) {
-  const variant = (data as { variant?: string } | undefined)?.variant;
+  const edgeData =
+    (data as { variant?: string; assemblyDelayMs?: number; signalDurationMs?: number } | undefined) ??
+    undefined;
+  const variant = edgeData?.variant;
   const isBranch = variant === "branch";
+  const packetDuration = edgeData?.signalDurationMs ?? (isBranch ? 2800 : 2200);
 
-  const [path] = getSmoothStepPath({
+  const [path] = getBezierPath({
     sourceX,
     sourceY,
     targetX,
     targetY,
     sourcePosition,
     targetPosition,
-    borderRadius: isBranch ? 14 : 22,
+    // Reduced curvature — cleaner, less tangled look
+    curvature: isBranch ? 0.45 : 0.35,
   });
 
+  const pathId = `neural-path-${id}`;
+
   return (
-    <BaseEdge
-      id={id}
-      path={path}
+    <g
       className={cn(
-        "neural-flow-edge",
-        isBranch && "neural-flow-edge--branch",
-        selected && "neural-flow-edge--selected",
+        "neural-flow-edge-wrap",
+        isBranch && "neural-flow-edge-wrap--branch",
+        selected && "neural-flow-edge-wrap--selected",
       )}
       style={{
-        stroke: selected
-          ? "var(--akshaya-cyan-400)"
-          : isBranch
-            ? "var(--akshaya-purple-400)"
-            : "var(--akshaya-node-edge-color)",
-        strokeWidth: selected ? 2.25 : isBranch ? 1.25 : 1.75,
-        filter: selected
-          ? "drop-shadow(0 0 8px var(--akshaya-cyan-glow))"
-          : isBranch
-            ? "drop-shadow(0 0 4px var(--akshaya-purple-glow))"
-            : undefined,
-      }}
-    />
+        "--assemble-delay": `${edgeData?.assemblyDelayMs ?? 0}ms`,
+      } as React.CSSProperties}
+    >
+      {/* Base dashed stroke */}
+      <BaseEdge
+        id={id}
+        path={path}
+        className={cn(
+          "neural-flow-edge",
+          isBranch && "neural-flow-edge--branch",
+          selected && "neural-flow-edge--selected",
+        )}
+      />
+
+      {/* Invisible path used as motion track for the packet */}
+      <path id={pathId} d={path} fill="none" stroke="none" />
+
+      {/* Soft glow overlay for depth */}
+      <path d={path} className="neural-flow-edge__glow" />
+
+      {/* Traveling data packet */}
+      <circle
+        r={isBranch ? 1.5 : 1.8}
+        className="neural-flow-edge__packet"
+      >
+        <animateMotion
+          dur={`${packetDuration}ms`}
+          repeatCount="indefinite"
+          rotate="auto"
+        >
+          <mpath href={`#${pathId}`} />
+        </animateMotion>
+      </circle>
+    </g>
   );
 }
 

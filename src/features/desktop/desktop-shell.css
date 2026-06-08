@@ -1,5 +1,7 @@
 /**
  * AKSHAYA OS — Desktop shell & taskbar
+ * Refined for premium clarity: reduced opacity on ambient layers,
+ * improved application window chrome.
  */
 
 @layer components {
@@ -14,24 +16,226 @@
     background: var(--akshaya-void);
   }
 
+  /* ─── Topbar ─── */
   .akshaya-desktop-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.75rem;
     flex-shrink: 0;
-    height: 2.25rem;
-    padding: 0 var(--akshaya-space-4);
-    border-bottom: 1px solid var(--akshaya-border-subtle);
+    height: 2.85rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgb(255 255 255 / 8%);
+    background: linear-gradient(180deg, rgb(4 6 14 / 92%), rgb(4 6 14 / 52%));
+    backdrop-filter: blur(20px) saturate(160%);
     z-index: var(--akshaya-z-dock);
   }
 
+  .akshaya-desktop-topbar__brand {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .akshaya-desktop-topbar__profile-capsule {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.18rem 0.75rem 0.18rem 0.22rem;
+    border-radius: var(--akshaya-radius-full);
+    background: rgb(255 255 255 / 3.5%);
+    border: 1px solid rgb(255 255 255 / 6%);
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+
+  .akshaya-desktop-topbar__profile-capsule:hover {
+    border-color: rgb(34 211 238 / 20%);
+    background: rgb(34 211 238 / 4%);
+  }
+
+  .akshaya-desktop-topbar__avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center top;
+    border: 1px solid rgb(34 211 238 / 35%);
+    box-shadow: 0 0 7px var(--akshaya-cyan-glow);
+  }
+
+  .akshaya-desktop-topbar__meta {
+    display: grid;
+    line-height: 1.1;
+  }
+
+  .akshaya-desktop-topbar__name {
+    font-family: var(--akshaya-font-display);
+    font-size: 0.76rem;
+    font-weight: var(--akshaya-weight-semibold);
+    color: var(--akshaya-text-primary);
+  }
+
+  .akshaya-desktop-topbar__role {
+    margin-top: 0.06rem;
+    font-family: var(--akshaya-font-mono);
+    font-size: 0.56rem;
+    letter-spacing: var(--akshaya-tracking-wider);
+    text-transform: uppercase;
+    color: var(--akshaya-cyan-400);
+    opacity: 0.85;
+  }
+
+  /* Unused topbar subcomponents (kept for future use) */
+  .akshaya-desktop-topbar__focus-capsule {
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.32rem 0.85rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid rgb(34 211 238 / 18%);
+    background: linear-gradient(120deg, rgb(34 211 238 / 6%), rgb(168 85 247 / 7%));
+  }
+
+  .akshaya-desktop-topbar__focus-pulse-dot {
+    width: 0.32rem;
+    height: 0.32rem;
+    border-radius: 50%;
+    background: var(--akshaya-cyan-400);
+    box-shadow: 0 0 8px var(--akshaya-cyan-glow);
+    animation: akshaya-pulse 2s ease-in-out infinite;
+  }
+
+  .akshaya-desktop-topbar__focus-label {
+    font-family: var(--akshaya-font-mono);
+    font-size: 0.58rem;
+    letter-spacing: var(--akshaya-tracking-wide);
+    text-transform: uppercase;
+    color: var(--akshaya-text-muted);
+    white-space: nowrap;
+  }
+
+  .akshaya-desktop-topbar__focus-value {
+    max-width: 16rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.7rem;
+    font-weight: var(--akshaya-weight-semibold);
+    color: var(--akshaya-text-primary);
+  }
+
+  .akshaya-desktop-topbar__actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+  }
+
+  .akshaya-desktop-topbar__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.26rem 0.6rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid rgb(52 211 153 / 22%);
+    background: rgb(52 211 153 / 8%);
+    font-size: 0.62rem;
+    font-family: var(--akshaya-font-mono);
+    color: var(--akshaya-success);
+    white-space: nowrap;
+  }
+
+  .akshaya-desktop-topbar__status-dot {
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.9;
+    animation: akshaya-pulse 2s ease-in-out infinite;
+  }
+
+  .akshaya-desktop-topbar__status--busy {
+    color: var(--akshaya-warning);
+    border-color: rgb(251 191 36 / 30%);
+    background: rgb(251 191 36 / 8%);
+  }
+
+  .akshaya-desktop-topbar__status--offline {
+    color: var(--akshaya-text-muted);
+    border-color: rgb(148 163 184 / 18%);
+    background: rgb(148 163 184 / 5%);
+  }
+
+  .akshaya-desktop-topbar__terminal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    height: 1.9rem;
+    padding: 0 0.6rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid rgb(34 211 238 / 25%);
+    background: rgb(34 211 238 / 8%);
+    color: var(--akshaya-cyan-300);
+    font-family: var(--akshaya-font-mono);
+    font-size: 0.64rem;
+    letter-spacing: var(--akshaya-tracking-wide);
+    cursor: pointer;
+    transition: transform 180ms var(--akshaya-ease-out), box-shadow 180ms ease, background 180ms ease;
+  }
+
+  .akshaya-desktop-topbar__terminal:hover {
+    transform: translateY(-1px);
+    background: rgb(34 211 238 / 13%);
+    box-shadow: 0 0 12px rgb(34 211 238 / 28%);
+  }
+
+  .akshaya-desktop-topbar__kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 0.3rem;
+    border: 1px solid rgb(34 211 238 / 35%);
+    background: rgb(0 0 0 / 28%);
+    font-family: var(--akshaya-font-mono);
+    font-size: 0.56rem;
+    line-height: 1;
+    color: var(--akshaya-cyan-300);
+  }
+
+  .akshaya-desktop-topbar__presence {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.28rem 0.5rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid rgb(168 85 247 / 22%);
+    background: rgb(168 85 247 / 7%);
+    color: var(--akshaya-purple-200);
+    font-size: 0.58rem;
+    letter-spacing: var(--akshaya-tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .akshaya-desktop-topbar__presence-dot {
+    width: 0.32rem;
+    height: 0.32rem;
+    border-radius: 50%;
+    background: var(--akshaya-purple-300);
+    box-shadow: 0 0 7px rgb(168 85 247 / 60%);
+    animation: akshaya-pulse 2.2s ease-in-out infinite;
+  }
+
+  /* ─── Desktop surface ─── */
   .akshaya-desktop-surface {
     flex: 1;
     min-height: 0;
     z-index: var(--akshaya-z-base);
   }
 
-  /* Managed windows — positioned by inline styles */
+  /* ─── Window chrome ─── */
   .akshaya-window--managed {
     position: absolute;
     min-width: var(--akshaya-window-min-width);
@@ -58,13 +262,14 @@
   .akshaya-window__traffic-btn {
     padding: 0;
     cursor: pointer;
-    transition: transform var(--akshaya-duration-fast) var(--akshaya-ease-out),
+    transition:
+      transform var(--akshaya-duration-fast) var(--akshaya-ease-out),
       filter var(--akshaya-duration-fast) var(--akshaya-ease-out);
   }
 
   .akshaya-window__traffic-btn:hover {
-    transform: scale(1.12);
-    filter: brightness(1.1);
+    transform: scale(1.14);
+    filter: brightness(1.12);
   }
 
   .akshaya-window__traffic-btn:focus-visible {
@@ -72,20 +277,123 @@
     outline-offset: 2px;
   }
 
-  /* Taskbar */
+  /* ─── Application window (fullscreen dock-launched) ─── */
+  .akshaya-window--application {
+    position: relative;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: rgb(3 5 10 / 98%);
+  }
+
+  .akshaya-window--application .akshaya-window__titlebar {
+    height: 2.85rem;
+    background: linear-gradient(180deg, rgb(0 0 0 / 60%), rgb(0 0 0 / 40%));
+    border-bottom: 1px solid rgb(34 211 238 / 18%);
+    backdrop-filter: blur(16px);
+  }
+
+  .akshaya-window--application .akshaya-window__title--application {
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-sm);
+    font-weight: var(--akshaya-weight-semibold);
+    letter-spacing: var(--akshaya-tracking-wider);
+    text-transform: uppercase;
+    color: var(--akshaya-text-secondary);
+  }
+
+  /* Back to Desktop button */
+  .akshaya-window__back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid rgb(34 211 238 / 22%);
+    background: rgb(34 211 238 / 7%);
+    color: var(--akshaya-cyan-300);
+    font-family: var(--akshaya-font-display);
+    font-size: var(--akshaya-text-xs);
+    font-weight: var(--akshaya-weight-medium);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition:
+      background var(--akshaya-duration-fast),
+      border-color var(--akshaya-duration-fast),
+      box-shadow var(--akshaya-duration-fast),
+      transform var(--akshaya-duration-fast);
+  }
+
+  .akshaya-window__back-btn:hover {
+    background: rgb(34 211 238 / 13%);
+    border-color: rgb(34 211 238 / 38%);
+    box-shadow: 0 0 12px rgb(34 211 238 / 20%);
+    transform: translateX(-1px);
+  }
+
+  .akshaya-window__close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--akshaya-radius-full);
+    border: 1px solid rgb(255 255 255 / 14%);
+    background: rgb(255 255 255 / 5%);
+    color: var(--akshaya-text-secondary);
+    cursor: pointer;
+    transition:
+      background var(--akshaya-duration-fast),
+      border-color var(--akshaya-duration-fast),
+      color var(--akshaya-duration-fast);
+  }
+
+  .akshaya-window__close-btn:hover {
+    border-color: rgb(248 113 113 / 45%);
+    background: rgb(248 113 113 / 12%);
+    color: rgb(252 165 165);
+  }
+
+  .neural-ambient__network-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(34 211 238 / 22%), transparent);
+    opacity: 0.35;
+    animation: neural-network-line-pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes neural-network-line-pulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.55; }
+  }
+
+  .akshaya-window__body--application {
+    background: transparent;
+  }
+
+  /* ─── Floating window (neural-launched) ─── */
+  .akshaya-window--floating {
+    border-radius: var(--akshaya-radius-xl);
+    box-shadow:
+      0 20px 50px rgb(0 0 0 / 50%),
+      0 0 0 1px rgb(255 255 255 / 5%),
+      inset 0 1px 0 rgb(255 255 255 / 4%);
+  }
+
+  /* ─── Taskbar ─── */
   .akshaya-taskbar {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: var(--akshaya-space-3);
     flex-shrink: 0;
-    height: var(--akshaya-taskbar-height, 3rem);
+    height: var(--akshaya-taskbar-height, 2.75rem);
     padding: 0 var(--akshaya-space-3);
-    background: rgb(10 14 23 / 78%);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border-top: 1px solid var(--akshaya-border-default);
-    box-shadow: 0 -8px 32px rgb(0 0 0 / 40%);
+    background: rgb(8 12 20 / 85%);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-top: 1px solid rgb(255 255 255 / 8%);
+    box-shadow: 0 -6px 24px rgb(0 0 0 / 35%);
     z-index: var(--akshaya-z-dock);
   }
 
@@ -104,37 +412,11 @@
     padding-left: var(--akshaya-space-2);
   }
 
-  .akshaya-taskbar__app-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: var(--akshaya-radius-lg);
-    color: var(--akshaya-cyan-300);
-    background: rgb(255 255 255 / 4%);
-    border: 1px solid var(--akshaya-border-subtle);
-    transition:
-      background var(--akshaya-duration-fast) var(--akshaya-ease-out),
-      border-color var(--akshaya-duration-fast) var(--akshaya-ease-out),
-      box-shadow var(--akshaya-duration-fast) var(--akshaya-ease-out);
-  }
-
-  .akshaya-taskbar__app-btn:hover {
-    background: rgb(34 211 238 / 10%);
-    border-color: var(--akshaya-border-cyan);
-  }
-
-  .akshaya-taskbar__app-btn--running {
-    border-color: var(--akshaya-border-accent);
-    box-shadow: 0 0 12px var(--akshaya-blue-glow);
-  }
-
   .akshaya-taskbar__window-btn {
     display: inline-flex;
     align-items: center;
     gap: var(--akshaya-space-2);
-    height: 2rem;
+    height: 1.9rem;
     padding: 0 var(--akshaya-space-3);
     max-width: 10rem;
     font-family: var(--akshaya-font-display);
@@ -152,44 +434,43 @@
   }
 
   .akshaya-taskbar__window-btn:hover {
-    background: rgb(255 255 255 / 8%);
+    background: rgb(255 255 255 / 7%);
     color: var(--akshaya-text-primary);
   }
 
   .akshaya-taskbar__window-btn--active {
     color: var(--akshaya-text-primary);
-    background: rgb(0 102 255 / 14%);
+    background: rgb(0 102 255 / 12%);
     border-color: var(--akshaya-border-accent);
-    box-shadow: 0 0 12px var(--akshaya-blue-glow);
+    box-shadow: 0 0 10px var(--akshaya-blue-glow);
   }
 
   .akshaya-taskbar__window-btn--minimized {
-    opacity: 0.65;
+    opacity: 0.6;
     border-style: dashed;
   }
 
-  .akshaya-desktop-topbar__avatar {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center top;
-    border: 1px solid rgb(34 211 238 / 35%);
-    box-shadow: 0 0 12px var(--akshaya-cyan-glow);
-  }
-
+  /* Dock icon buttons */
   .akshaya-taskbar__dock {
     display: flex;
     align-items: flex-end;
-    gap: 0.55rem;
-    padding: 0.15rem 0.35rem;
+    gap: 0.5rem;
+    padding: 0.12rem 0.3rem;
   }
 
   .akshaya-taskbar__app-btn {
     position: relative;
-    width: 2.65rem;
-    height: 2.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--akshaya-radius-lg);
+    color: var(--akshaya-cyan-300);
+    background: rgb(255 255 255 / 4%);
+    border: 1px solid rgb(255 255 255 / 7%);
     transform-origin: bottom center;
+    cursor: pointer;
     transition:
       transform var(--akshaya-duration-fast) var(--akshaya-ease-spring),
       background var(--akshaya-duration-fast) var(--akshaya-ease-out),
@@ -198,46 +479,60 @@
   }
 
   .akshaya-taskbar__app-btn:hover {
-    transform: translateY(-6px) scale(1.08);
-    box-shadow: 0 8px 20px rgb(0 0 0 / 35%);
+    transform: translateY(-5px) scale(1.07);
+    background: rgb(34 211 238 / 9%);
+    border-color: rgb(34 211 238 / 28%);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 30%);
+  }
+
+  .akshaya-taskbar__app-btn--running {
+    border-color: rgb(0 102 255 / 38%);
+    box-shadow: 0 0 10px var(--akshaya-blue-glow);
   }
 
   .akshaya-taskbar__app-btn--active {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(-3px) scale(1.04);
     border-color: var(--akshaya-cyan-400);
+    background: rgb(34 211 238 / 10%);
     box-shadow:
-      0 0 16px var(--akshaya-blue-glow),
-      0 8px 20px rgb(0 0 0 / 30%);
+      0 0 14px rgb(34 211 238 / 28%),
+      0 6px 18px rgb(0 0 0 / 28%);
   }
 
+  /* Active indicator dot */
   .akshaya-taskbar__app-btn--active::after {
     content: "";
     position: absolute;
-    bottom: -0.35rem;
+    bottom: -0.32rem;
     left: 50%;
-    width: 0.35rem;
-    height: 0.35rem;
+    width: 0.3rem;
+    height: 0.3rem;
     transform: translateX(-50%);
     border-radius: 50%;
     background: var(--akshaya-cyan-400);
-    box-shadow: 0 0 8px var(--akshaya-cyan-glow);
+    box-shadow: 0 0 6px var(--akshaya-cyan-glow);
   }
 
+  /* Tooltip */
   .akshaya-taskbar__app-tooltip {
     position: absolute;
-    bottom: calc(100% + 0.45rem);
+    bottom: calc(100% + 0.4rem);
     left: 50%;
-    transform: translateX(-50%) scale(0.96);
+    transform: translateX(-50%) scale(0.94);
     opacity: 0;
     pointer-events: none;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.625rem;
+    padding: 0.18rem 0.48rem;
+    font-family: var(--akshaya-font-display);
+    font-size: 0.6rem;
+    font-weight: var(--akshaya-weight-medium);
     white-space: nowrap;
     border-radius: var(--akshaya-radius-sm);
-    background: rgb(8 12 20 / 92%);
+    background: rgb(6 10 18 / 94%);
     border: 1px solid var(--akshaya-border-subtle);
     color: var(--akshaya-text-secondary);
-    transition: opacity var(--akshaya-duration-fast), transform var(--akshaya-duration-fast);
+    transition:
+      opacity var(--akshaya-duration-fast),
+      transform var(--akshaya-duration-fast);
   }
 
   .akshaya-taskbar__app-btn:hover .akshaya-taskbar__app-tooltip {
@@ -245,163 +540,122 @@
     transform: translateX(-50%) scale(1);
   }
 
-  .akshaya-window--application {
-    position: relative;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    background: rgb(4 6 12 / 98%);
+  /* ─── Ambient background layers ─── */
+
+  /* Primary depth atmosphere */
+  .neural-ambient__depth {
+    position: absolute;
+    inset: -15%;
+    border-radius: 40%;
+    filter: blur(52px);
+    opacity: 0.14;
+    animation: neural-depth-drift 32s ease-in-out infinite alternate;
   }
 
-  .akshaya-window--application .akshaya-window__titlebar {
-    height: 3rem;
-    background: rgb(0 0 0 / 55%);
-    border-bottom: 1px solid var(--akshaya-border-accent);
+  .neural-ambient__depth--a {
+    background: radial-gradient(circle at 15% 25%, rgb(0 132 255 / 50%), transparent 65%);
   }
 
-  .akshaya-window--application .akshaya-window__title--application {
-    font-size: var(--akshaya-text-base);
-    letter-spacing: var(--akshaya-tracking-wide);
+  .neural-ambient__depth--b {
+    background: radial-gradient(circle at 80% 72%, rgb(168 85 247 / 40%), transparent 65%);
+    animation-delay: 3s;
   }
 
-  .akshaya-window__back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.35rem 0.75rem;
-    border-radius: var(--akshaya-radius-full);
-    border: 1px solid var(--akshaya-border-cyan);
-    background: rgb(34 211 238 / 8%);
-    color: var(--akshaya-cyan-300);
-    font-family: var(--akshaya-font-display);
-    font-size: var(--akshaya-text-xs);
-    font-weight: var(--akshaya-weight-medium);
-    cursor: pointer;
-    transition:
-      background var(--akshaya-duration-fast),
-      box-shadow var(--akshaya-duration-fast);
-  }
-
-  .akshaya-window__back-btn:hover {
-    background: rgb(34 211 238 / 15%);
-    box-shadow: var(--akshaya-shadow-glow-cyan);
-  }
-
-  .akshaya-window__body--application {
-    background: transparent;
-  }
-
-  .akshaya-window--floating {
-    border-radius: var(--akshaya-radius-xl);
-    box-shadow:
-      0 20px 50px rgb(0 0 0 / 45%),
-      0 0 0 1px rgb(255 255 255 / 6%);
-  }
-
-  /* Ambient neural background */
-  .neural-ambient__pathways {
+  /* Subtle structural grid */
+  .neural-ambient__grid {
     position: absolute;
     inset: 0;
-    opacity: 0.35;
+    opacity: 0.045;
     background-image:
-      radial-gradient(circle at 20% 30%, rgb(0 102 255 / 12%), transparent 35%),
-      radial-gradient(circle at 80% 70%, rgb(168 85 247 / 10%), transparent 40%),
-      linear-gradient(115deg, transparent 48%, rgb(34 211 238 / 6%) 49%, transparent 51%),
-      linear-gradient(245deg, transparent 48%, rgb(168 85 247 / 5%) 49%, transparent 51%);
-    animation: neural-ambient-drift 24s ease-in-out infinite alternate;
+      linear-gradient(rgb(34 211 238 / 7%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(34 211 238 / 7%) 1px, transparent 1px);
+    background-size: 100px 100px;
+    mask-image: radial-gradient(circle at 50% 45%, black 16%, transparent 70%);
+    animation: neural-grid-shift 35s linear infinite;
   }
 
+  /* Edge ambient glows */
   .neural-ambient__glow {
     position: absolute;
-    width: 28rem;
-    height: 28rem;
+    width: 24rem;
+    height: 24rem;
     border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.35;
-    animation: akshaya-glow 8s ease-in-out infinite;
+    filter: blur(80px);
+    opacity: 0.18;
+    animation: akshaya-glow 14s ease-in-out infinite;
   }
 
   .neural-ambient__glow--left {
     left: -8rem;
-    top: 20%;
+    top: 12%;
     background: var(--akshaya-blue-glow);
   }
 
   .neural-ambient__glow--right {
     right: -8rem;
-    bottom: 10%;
+    bottom: 8%;
     background: var(--akshaya-purple-glow);
-    animation-delay: 2s;
+    animation-delay: 2.5s;
   }
 
+  /* Floating particles */
   .neural-ambient__particle {
     position: absolute;
     border-radius: 50%;
     background: var(--akshaya-cyan-400);
-    opacity: 0.45;
+    opacity: 0.25;
     animation: neural-particle-float linear infinite;
-  }
-
-  .neural-ambient__packet {
-    position: absolute;
-    left: -10%;
-    width: 2.5rem;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--akshaya-cyan-400), transparent);
-    opacity: 0.5;
-    animation: neural-packet-travel linear infinite;
-  }
-
-  .neural-ambient__signal {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgb(34 211 238 / 20%);
-    animation: neural-signal-pulse 4s ease-out infinite;
-  }
-
-  .neural-ambient__signal--a {
-    left: 50%;
-    top: 42%;
-    width: 8rem;
-    height: 8rem;
-    transform: translate(-50%, -50%);
-  }
-
-  .neural-ambient__signal--b {
-    left: 50%;
-    top: 42%;
-    width: 12rem;
-    height: 12rem;
-    transform: translate(-50%, -50%);
-    animation-delay: 1.2s;
+    filter: drop-shadow(0 0 2px var(--akshaya-cyan-glow));
   }
 
   .neural-ambient--dim {
-    opacity: 0.35;
+    opacity: 0.28;
   }
 
+  /* ─── Keyframes ─── */
   @keyframes neural-ambient-drift {
     from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(12px, -8px, 0); }
+    to { transform: translate3d(14px, -10px, 0); }
+  }
+
+  @keyframes neural-depth-drift {
+    from { transform: translate3d(-10px, 8px, 0) scale(0.96); }
+    to { transform: translate3d(12px, -10px, 0) scale(1.04); }
+  }
+
+  @keyframes neural-grid-shift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-80px, -80px, 0); }
+  }
+
+  @keyframes neural-grid-pulse {
+    0%, 100% { opacity: 0.06; }
+    50% { opacity: 0.12; }
   }
 
   @keyframes neural-particle-float {
     0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.2; }
-    50% { transform: translate3d(0, -18px, 0); opacity: 0.7; }
+    50% { transform: translate3d(0, -20px, 0); opacity: 0.75; }
   }
 
   @keyframes neural-packet-travel {
     from { transform: translateX(0); opacity: 0; }
-    15% { opacity: 0.7; }
+    15% { opacity: 0.6; }
     to { transform: translateX(120vw); opacity: 0; }
   }
 
+  @keyframes neural-stream-fall {
+    from { transform: translateY(-8%); opacity: 0; }
+    15% { opacity: 0.22; }
+    to { transform: translateY(18%); opacity: 0; }
+  }
+
   @keyframes neural-signal-pulse {
-    0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.6; }
+    0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.5; }
     100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
   }
 
-  /* Mobile OS */
+  /* ─── Mobile OS ─── */
   .mobile-os-shell {
     display: flex;
     flex-direction: column;
@@ -415,8 +669,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 50% 0%, rgb(0 102 255 / 14%), transparent 50%),
-      radial-gradient(circle at 80% 80%, rgb(168 85 247 / 10%), transparent 45%);
+      radial-gradient(circle at 50% 0%, rgb(0 102 255 / 12%), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgb(168 85 247 / 9%), transparent 45%);
     pointer-events: none;
   }
 
@@ -444,7 +698,7 @@
     background-size: cover;
     background-position: center top;
     border: 2px solid var(--akshaya-border-cyan);
-    box-shadow: 0 0 20px var(--akshaya-cyan-glow);
+    box-shadow: 0 0 18px var(--akshaya-cyan-glow);
   }
 
   .mobile-os-shell__hero-title {
@@ -456,7 +710,29 @@
   .mobile-os-shell__hero-subtitle {
     margin-top: 0.35rem;
     font-size: var(--akshaya-text-sm);
-    color: var(--akshaya-text-muted);
+    color: var(--akshaya-cyan-400);
+    letter-spacing: var(--akshaya-tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .mobile-os-shell__hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--akshaya-radius-full);
+    font-size: var(--akshaya-text-xs);
+    border: 1px solid rgb(52 211 153 / 28%);
+    background: rgb(52 211 153 / 10%);
+    color: var(--akshaya-success);
+  }
+
+  .mobile-os-shell__hero-status-dot {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--akshaya-online);
   }
 
   .mobile-os-shell__grid {

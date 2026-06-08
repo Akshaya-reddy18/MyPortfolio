@@ -1,11 +1,26 @@
 import { ExternalLink } from "lucide-react";
+import { useEffect } from "react";
 import type { AppWindowProps } from "@/features/desktop/types";
 import { buildPortfolioMeta, getAchievements, getEducation } from "@/lib/portfolio";
 import { AppCard, AppFrame, AppSection, TagList } from "./components/AppLayout";
 import { AppGateWithCollections } from "./components/AppGate";
+import { consumeProfileScrollTarget } from "./profile-scroll";
 import "./apps.css";
 
 export function ProfileApp(_props: AppWindowProps) {
+  useEffect(() => {
+    const section = consumeProfileScrollTarget();
+    if (!section) return;
+
+    const timer = window.setTimeout(() => {
+      document.getElementById(`profile-${section}`)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 120);
+
+    return () => window.clearTimeout(timer);
+  }, []);
   return (
     <AppGateWithCollections>
       {({ document }) => {
@@ -95,7 +110,7 @@ export function ProfileApp(_props: AppWindowProps) {
             </AppSection>
 
             {education.length > 0 && (
-              <AppSection title="Education" eyebrow="Credentials">
+              <AppSection id="profile-education" title="Education" eyebrow="Credentials">
                 {education.map((entry, i) => (
                   <AppCard key={i} className="profile-education-card mb-3">
                     <p className="profile-entry-text">{entry.details}</p>
@@ -131,7 +146,7 @@ export function ProfileApp(_props: AppWindowProps) {
             )}
 
             {achievements.length > 0 && (
-              <AppSection title="Achievements">
+              <AppSection id="profile-achievements" title="Achievements">
                 <div className="profile-achievements-grid">
                   {achievements.map((entry) => (
                     <AppCard key={entry.title} className="profile-achievement-card">

@@ -126,15 +126,17 @@ function ContactFormInner({
       <AppSection title="Contact" eyebrow={description}>
         <div className="contact-grid">
           <div className="akshaya-glass-subtle rounded-xl p-4 space-y-3">
-            <div className="contact-info-row">
-              <span className="contact-info-row__label">Email</span>
-              <a
-                href={`mailto:${contact.email}`}
-                className="contact-info-row__value contact-info-row__value--link"
-              >
-                {contact.email}
-              </a>
-            </div>
+            {contact.email && (
+              <div className="contact-info-row">
+                <span className="contact-info-row__label">Email</span>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="contact-info-row__value contact-info-row__value--link"
+                >
+                  {contact.email}
+                </a>
+              </div>
+            )}
             {contact.phone && (
               <div className="contact-info-row">
                 <span className="contact-info-row__label">Phone</span>
@@ -178,26 +180,28 @@ function ContactFormInner({
         </div>
       </AppSection>
 
-      <AppSection title="Send a message">
-        <form className="contact-form" onSubmit={handleSubmit} noValidate>
-          {formFields.map((field) => (
-            <ContactField
-              key={field.name}
-              field={field}
-              value={values[field.name] ?? ""}
-              onChange={(v) => setField(field.name, v)}
-            />
-          ))}
-          <button type="submit" className="contact-form__submit akshaya-focus-ring">
-            Send via Email
-          </button>
-          {submitted && (
-            <p className="akshaya-type-caption text-muted-foreground">
-              Opening your email client…
-            </p>
-          )}
-        </form>
-      </AppSection>
+      {submitTo && (
+        <AppSection title="Send a message">
+          <form className="contact-form" onSubmit={handleSubmit} noValidate>
+            {formFields.map((field) => (
+              <ContactField
+                key={field.name}
+                field={field}
+                value={values[field.name] ?? ""}
+                onChange={(v) => setField(field.name, v)}
+              />
+            ))}
+            <button type="submit" className="contact-form__submit akshaya-focus-ring">
+              Send via Email
+            </button>
+            {submitted && (
+              <p className="akshaya-type-caption text-muted-foreground">
+                Opening your email client…
+              </p>
+            )}
+          </form>
+        </AppSection>
+      )}
     </AppFrame>
   );
 }

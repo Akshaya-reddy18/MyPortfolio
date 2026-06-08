@@ -11,12 +11,15 @@ export type NavNodeId =
   | "resume"
   | "contact";
 
+export type NavTier = "primary" | "tertiary";
+
 export interface NavModuleSpec {
   navId: NavNodeId;
   appId: AppId;
   entryType?: PortfolioEntryType;
   icon: LucideIcon;
-  layoutWeight?: number;
+  tier: NavTier;
+  profileSection?: string;
 }
 
 export interface NeuralCoreNodeData {
@@ -26,6 +29,7 @@ export interface NeuralCoreNodeData {
   avatarAlt: string;
   statusLabel: string;
   statusState: string;
+  assemblyDelayMs?: number;
   [key: string]: unknown;
 }
 
@@ -33,9 +37,11 @@ export interface NavModuleNodeData {
   navId: NavNodeId;
   appId: AppId;
   label: string;
+  tier: NavTier;
   count?: number;
   isActive: boolean;
   icon: LucideIcon;
+  assemblyDelayMs?: number;
   [key: string]: unknown;
 }
 
@@ -43,6 +49,7 @@ export interface ProjectClusterNodeData {
   category: string;
   projectCount: number;
   isActive: boolean;
+  assemblyDelayMs?: number;
   [key: string]: unknown;
 }
 

@@ -76,7 +76,7 @@ export interface NeuralCore {
 }
 
 export interface ContactInfo {
-  email: string;
+  email?: string;
   phone?: string;
   availability: string;
   responseTime: string;

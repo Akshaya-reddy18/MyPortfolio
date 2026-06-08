@@ -3,6 +3,7 @@ import { AKSHAYA_DURATION, AKSHAYA_EASING } from "@/design-system";
 import { NeuralNetworkNav } from "@/features/neural-network";
 import { cn } from "@/lib/utils";
 import type { WindowInstance } from "../types";
+import { useViewportSize } from "../hooks/use-viewport-size";
 import { useWindowManager } from "../window-manager/window-manager-context";
 import { NeuralAmbientBackground } from "./NeuralAmbientBackground";
 import { WindowFrame } from "./WindowFrame";
@@ -13,6 +14,7 @@ interface DesktopSurfaceProps {
 
 export function DesktopSurface({ className }: DesktopSurfaceProps) {
   const { windows, desktopMode, blurDesktop } = useWindowManager();
+  const viewport = useViewportSize();
 
   const applicationWindow = windows.find(
     (w) => w.launchMode === "dock" && w.state !== "minimized",
@@ -48,7 +50,11 @@ export function DesktopSurface({ className }: DesktopSurfaceProps) {
         }}
         style={{ pointerEvents: isApplicationMode ? "none" : "auto" }}
       >
-        <NeuralNetworkNav className="h-full w-full" paused={isApplicationMode} />
+        <NeuralNetworkNav
+          className="h-full w-full"
+          paused={isApplicationMode}
+          viewport={viewport}
+        />
       </motion.div>
 
       {isApplicationMode && (

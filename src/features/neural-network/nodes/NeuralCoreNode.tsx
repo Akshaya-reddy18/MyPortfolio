@@ -3,11 +3,14 @@ import { memo } from "react";
 import { cn } from "@/lib/utils";
 import type { NeuralCoreNodeData } from "../types";
 
-const ORBIT_PARTICLES = Array.from({ length: 8 }, (_, i) => ({
-  id: i,
-  angle: i * 45,
-  delay: i * 0.35,
-}));
+const ORBIT_PARTICLES = Array.from({ length: 6 }, (_, i) => i);
+
+const NAV_HANDLE_POSITIONS = [
+  Position.Top,
+  Position.Right,
+  Position.Bottom,
+  Position.Left,
+] as const;
 
 function NeuralCoreNodeComponent({ data, selected }: NodeProps) {
   const nodeData = data as NeuralCoreNodeData;
@@ -15,9 +18,12 @@ function NeuralCoreNodeComponent({ data, selected }: NodeProps) {
   return (
     <div
       className={cn(
-        "neural-flow-core neural-flow-core--hero",
+        "neural-flow-core",
         selected && "neural-flow-core--selected",
       )}
+      style={{
+        "--assemble-delay": `${nodeData.assemblyDelayMs ?? 0}ms`,
+      } as React.CSSProperties}
     >
       {NAV_HANDLE_POSITIONS.map((pos) => (
         <Handle
@@ -28,39 +34,37 @@ function NeuralCoreNodeComponent({ data, selected }: NodeProps) {
         />
       ))}
 
-      <div className="neural-flow-core__signal neural-flow-core__signal--a" aria-hidden />
-      <div className="neural-flow-core__signal neural-flow-core__signal--b" aria-hidden />
-
+      <div className="neural-flow-core__glow" aria-hidden />
       <div className="neural-flow-core__pulse-ring neural-flow-core__pulse-ring--1" aria-hidden />
       <div className="neural-flow-core__pulse-ring neural-flow-core__pulse-ring--2" aria-hidden />
-      <div className="neural-flow-core__pulse-ring neural-flow-core__pulse-ring--3" aria-hidden />
 
       <div className="neural-flow-core__orbit" aria-hidden>
         {ORBIT_PARTICLES.map((particle) => (
           <span
-            key={particle.id}
-            className="neural-flow-core__orbit-particle"
-            style={{
-              ["--orbit-angle" as string]: `${particle.angle}deg`,
-              animationDelay: `${particle.delay}s`,
-            }}
+            key={particle}
+            className={`neural-flow-core__orbit-particle neural-flow-core__orbit-particle--${particle + 1}`}
           />
         ))}
       </div>
 
-      <div className="neural-flow-core__glow" aria-hidden />
       <div className="neural-flow-core__ring" aria-hidden>
         <div className="neural-flow-core__ring-inner" />
       </div>
 
-      <div
+      <img
         className="neural-flow-core__avatar"
-        style={{ backgroundImage: `url("${nodeData.avatarSrc}")` }}
-        role="img"
-        aria-label={nodeData.avatarAlt}
+        src={nodeData.avatarSrc}
+        alt={nodeData.avatarAlt}
       />
 
+      <div className="neural-flow-core__activity" aria-hidden>
+        <span className="neural-flow-core__activity-bar" />
+        <span className="neural-flow-core__activity-bar" />
+        <span className="neural-flow-core__activity-bar" />
+      </div>
+
       <div className="neural-flow-core__meta">
+        <p className="neural-flow-core__eyebrow">Neural Core</p>
         <p className="neural-flow-core__name">{nodeData.name}</p>
         <p className="neural-flow-core__role">{nodeData.role}</p>
         <span
@@ -76,12 +80,5 @@ function NeuralCoreNodeComponent({ data, selected }: NodeProps) {
     </div>
   );
 }
-
-const NAV_HANDLE_POSITIONS = [
-  Position.Top,
-  Position.Right,
-  Position.Bottom,
-  Position.Left,
-] as const;
 
 export const NeuralCoreNode = memo(NeuralCoreNodeComponent);

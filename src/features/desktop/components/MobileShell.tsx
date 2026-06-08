@@ -1,11 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { AKSHAYA_DURATION, AKSHAYA_EASING } from "@/design-system";
+import { usePortfolioData } from "@/hooks/use-portfolio-data";
 import { getAllApps } from "../app-registry";
 import { cn } from "@/lib/utils";
 import { useWindowManager } from "../window-manager/window-manager-context";
 
 export function MobileShell() {
+  const { document } = usePortfolioData();
+  const profile = document?.neuralCore.profile;
   const {
     windows,
     openAppFromDock,
@@ -72,11 +75,28 @@ export function MobileShell() {
             exit={{ opacity: 0 }}
           >
             <div className="mobile-os-shell__hero">
-              <div className="mobile-os-shell__hero-avatar" aria-hidden />
-              <h1 className="mobile-os-shell__hero-title">Neural OS</h1>
+              <div
+                className="mobile-os-shell__hero-avatar"
+                style={
+                  profile
+                    ? { backgroundImage: `url("${profile.avatar.src}")` }
+                    : undefined
+                }
+                role="img"
+                aria-label={profile?.avatar.alt}
+              />
+              <h1 className="mobile-os-shell__hero-title">
+                {profile?.name ?? "AKSHAYA OS"}
+              </h1>
               <p className="mobile-os-shell__hero-subtitle">
-                AI portfolio operating system
+                {profile?.role ?? "ML Engineer"}
               </p>
+              {profile?.status && (
+                <span className="mobile-os-shell__hero-status">
+                  <span className="mobile-os-shell__hero-status-dot" aria-hidden />
+                  {profile.status.label}
+                </span>
+              )}
             </div>
             <div className="mobile-os-shell__grid">
               {dockApps.map((app) => {

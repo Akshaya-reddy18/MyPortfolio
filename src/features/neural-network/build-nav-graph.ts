@@ -1,17 +1,10 @@
 import type { Edge, Node } from "@xyflow/react";
 import type { AppId } from "@/features/desktop/types";
 import type { PortfolioDocument, PortfolioMeta } from "@/types";
-import { getProjects } from "@/lib/portfolio";
+import { computeNavPositions, type NavLayoutSlot } from "./layout";
 import { NAV_MODULE_SPECS, NEURAL_CORE_NODE_ID } from "./nav-module-specs";
-import type {
-  NavModuleNodeData,
-  NavNodeId,
-  NeuralCoreNodeData,
-  ProjectClusterNodeData,
-} from "./types";
+import type { NavModuleNodeData, NavNodeId, NeuralCoreNodeData } from "./types";
 
-const PRIMARY_RADIUS = 380;
-const CLUSTER_RADIUS = 155;
 const CENTER = { x: 0, y: 0 };
 
 function getNavLabel(navId: NavNodeId, document: PortfolioDocument): string {
@@ -33,28 +26,38 @@ function getNavLabel(navId: NavNodeId, document: PortfolioDocument): string {
   }
 }
 
-function slugifyCategory(category: string): string {
-  return category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-}
-
 export interface BuildNavGraphOptions {
   document: PortfolioDocument;
   meta: PortfolioMeta;
   activeAppIds?: Set<AppId>;
+  viewport?: { width: number; height: number };
+  simplified?: boolean;
 }
 
 export interface NeuralNavGraph {
-  nodes: Node<NeuralCoreNodeData | NavModuleNodeData | ProjectClusterNodeData>[];
+  nodes: Node<NeuralCoreNodeData | NavModuleNodeData>[];
   edges: Edge[];
 }
 
+/**
+ * Assembly timing strategy:
+ * - Core: immediate (0ms)
+ * - Primary nodes: staggered 500–900ms
+ * - Primary edges: 900–1200ms
+ * - Tertiary nodes: 1100–1500ms
+ * - Tertiary edges: 1400–1800ms
+ *
+ * This creates a clear cinematic sequence:
+ * core → primary ring → tertiary ring
+ */
 export function buildNeuralNavGraph({
   document,
   meta,
   activeAppIds = new Set(),
+  viewport = { width: 1280, height: 800 },
+  simplified = false,
 }: BuildNavGraphOptions): NeuralNavGraph {
   const profile = document.neuralCore.profile;
-  const projectsActive = activeAppIds.has("projects");
 
   const coreNode: Node<NeuralCoreNodeData> = {
     id: NEURAL_CORE_NODE_ID,
@@ -67,121 +70,102 @@ export function buildNeuralNavGraph({
       avatarAlt: profile.avatar.alt,
       statusLabel: profile.status.label,
       statusState: profile.status.state,
+      assemblyDelayMs: 0,
     },
     draggable: false,
     selectable: true,
-    zIndex: 10,
+    zIndex: 20,
   };
 
-  const totalWeight = NAV_MODULE_SPECS.reduce(
-    (sum, spec) => sum + (spec.layoutWeight ?? 1),
-    0,
-  );
+  const activeSpecs = simplified
+    ? NAV_MODULE_SPECS.filter((spec) => spec.tier === "primary")
+    : NAV_MODULE_SPECS;
 
-  let angleCursor = -Math.PI / 2;
+  const layoutSlots: NavLayoutSlot[] = activeSpecs.map((spec, index) => ({
+    navId: spec.navId,
+    tier: spec.tier,
+    index,
+  }));
 
-  const navNodes: Node<NavModuleNodeData>[] = NAV_MODULE_SPECS.map((spec) => {
-    const weight = spec.layoutWeight ?? 1;
-    const slice = (weight / totalWeight) * Math.PI * 2;
-    const angle = angleCursor + slice / 2;
-    angleCursor += slice;
+  const positions = computeNavPositions(layoutSlots, viewport);
 
-    const radius =
-      spec.navId === "projects" ? PRIMARY_RADIUS - 20 : PRIMARY_RADIUS;
+  // Separate by tier for staggered timing
+  const primarySpecs = activeSpecs.filter((s) => s.tier === "primary");
+  const tertiarySpecs = activeSpecs.filter((s) => s.tier === "tertiary");
 
+  const navNodes: Node<NavModuleNodeData>[] = activeSpecs.map((spec) => {
+    const pos = positions.get(spec.navId) ?? CENTER;
     const count =
       spec.entryType && meta.counts[spec.entryType] > 0
         ? meta.counts[spec.entryType]
         : undefined;
 
+    const isPrimary = spec.tier === "primary";
+    const tierIndex = isPrimary
+      ? primarySpecs.indexOf(spec)
+      : tertiarySpecs.indexOf(spec);
+
+    // Primary: 500, 620, 740ms | Tertiary: 1100, 1220, 1340, 1460ms
+    const assemblyDelayMs = isPrimary
+      ? 500 + tierIndex * 120
+      : 1100 + tierIndex * 120;
+
     return {
       id: spec.navId,
       type: "navModule",
-      position: {
-        x: CENTER.x + radius * Math.cos(angle),
-        y: CENTER.y + radius * Math.sin(angle),
-      },
+      position: pos,
       data: {
         navId: spec.navId,
         appId: spec.appId,
         label: getNavLabel(spec.navId, document),
+        tier: spec.tier,
         count,
         isActive: activeAppIds.has(spec.appId),
         icon: spec.icon,
+        assemblyDelayMs,
       },
       draggable: false,
       selectable: true,
-      zIndex: 5,
+      zIndex: spec.tier === "primary" ? 10 : 5,
     };
   });
 
-  const projectsNode = navNodes.find((node) => node.id === "projects");
-  const clusterNodes: Node<ProjectClusterNodeData>[] = [];
-  const clusterEdges: Edge[] = [];
+  const coreEdges: Edge[] = activeSpecs.map((spec) => {
+    const isPrimary = spec.tier === "primary";
+    const tierIndex = isPrimary
+      ? primarySpecs.indexOf(spec)
+      : tertiarySpecs.indexOf(spec);
 
-  if (projectsNode) {
-    const categories = meta.projectCategories;
-    const projects = getProjects(document.entries);
-    const clusterSpread = Math.min(Math.PI * 0.9, categories.length * 0.28);
-    const startAngle = -Math.PI / 2 - clusterSpread / 2;
+    // Edges appear just after their target node
+    const assemblyDelayMs = isPrimary
+      ? 760 + tierIndex * 100
+      : 1360 + tierIndex * 90;
 
-    categories.forEach((category, index) => {
-      const clusterAngle =
-        categories.length === 1
-          ? -Math.PI / 2
-          : startAngle + (index / (categories.length - 1)) * clusterSpread;
-
-      const clusterId = `cluster-${slugifyCategory(category)}`;
-      const projectCount = projects.filter((p) => p.category === category).length;
-
-      clusterNodes.push({
-        id: clusterId,
-        type: "projectCluster",
-        position: {
-          x: projectsNode.position.x + CLUSTER_RADIUS * Math.cos(clusterAngle),
-          y: projectsNode.position.y + CLUSTER_RADIUS * Math.sin(clusterAngle),
-        },
-        data: {
-          category,
-          projectCount,
-          isActive: projectsActive,
-        },
-        draggable: false,
-        selectable: true,
-        zIndex: 3,
-      });
-
-      clusterEdges.push({
-        id: `edge-projects-${clusterId}`,
-        source: "projects",
-        target: clusterId,
-        type: "neural",
-        animated: true,
-        data: { variant: "branch" },
-      });
-    });
-  }
-
-  const coreEdges: Edge[] = NAV_MODULE_SPECS.map((spec) => ({
-    id: `edge-${NEURAL_CORE_NODE_ID}-${spec.navId}`,
-    source: NEURAL_CORE_NODE_ID,
-    target: spec.navId,
-    type: "neural",
-    animated: true,
-    data: { variant: "primary" },
-  }));
+    return {
+      id: `edge-${NEURAL_CORE_NODE_ID}-${spec.navId}`,
+      source: NEURAL_CORE_NODE_ID,
+      target: spec.navId,
+      type: "neural",
+      animated: true,
+      data: {
+        variant: spec.tier === "primary" ? "primary" : "branch",
+        assemblyDelayMs,
+        signalDurationMs: spec.tier === "primary" ? 2200 : 2800,
+      },
+    };
+  });
 
   return {
-    nodes: [coreNode, ...navNodes, ...clusterNodes],
-    edges: [...coreEdges, ...clusterEdges],
+    nodes: [coreNode, ...navNodes],
+    edges: coreEdges,
   };
 }
 
-export function getAppIdFromNodeId(nodeId: string): AppId | null {
-  if (nodeId.startsWith("cluster-")) {
-    return "projects";
-  }
+export function getNavSpecFromNodeId(nodeId: string) {
+  return NAV_MODULE_SPECS.find((s) => s.navId === nodeId);
+}
 
-  const spec = NAV_MODULE_SPECS.find((s) => s.navId === nodeId);
+export function getAppIdFromNodeId(nodeId: string): AppId | null {
+  const spec = getNavSpecFromNodeId(nodeId);
   return spec?.appId ?? null;
 }

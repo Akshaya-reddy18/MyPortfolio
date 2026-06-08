@@ -1,0 +1,174 @@
+.arch-diagram {
+  margin: var(--akshaya-space-4) 0;
+  padding: var(--akshaya-space-4);
+  border-radius: var(--akshaya-radius-xl);
+  border: 1px solid rgb(34 211 238 / 18%);
+  background: linear-gradient(165deg, rgb(0 102 255 / 6%), rgb(3 7 16 / 92%));
+}
+
+.arch-diagram__eyebrow {
+  font-family: var(--akshaya-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: var(--akshaya-tracking-widest);
+  text-transform: uppercase;
+  color: var(--akshaya-cyan-400);
+  margin-bottom: var(--akshaya-space-3);
+}
+
+.arch-diagram__flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.arch-diagram__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 16rem;
+}
+
+.arch-diagram__node {
+  position: relative;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--akshaya-radius-lg);
+  border: 1px solid rgb(34 211 238 / 28%);
+  background: rgb(6 14 28 / 88%);
+  text-align: center;
+  transition:
+    border-color var(--akshaya-duration-fast),
+    box-shadow var(--akshaya-duration-fast),
+    transform var(--akshaya-duration-fast);
+}
+
+.arch-diagram__node:hover {
+  border-color: rgb(168 85 247 / 45%);
+  box-shadow: 0 0 18px rgb(34 211 238 / 18%);
+  transform: translateY(-1px);
+}
+
+.arch-diagram__node-label {
+  display: block;
+  font-family: var(--akshaya-font-display);
+  font-size: var(--akshaya-text-sm);
+  font-weight: var(--akshaya-weight-semibold);
+  color: var(--akshaya-text-primary);
+}
+
+.arch-diagram__node-sub {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.62rem;
+  color: var(--akshaya-text-muted);
+  letter-spacing: var(--akshaya-tracking-wide);
+  text-transform: uppercase;
+}
+
+.arch-diagram__node-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 0%, rgb(34 211 238 / 12%), transparent 70%);
+  transition: opacity var(--akshaya-duration-fast);
+  pointer-events: none;
+}
+
+.arch-diagram__node:hover .arch-diagram__node-glow {
+  opacity: 1;
+}
+
+.arch-diagram__connector {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 2rem;
+  width: 2px;
+  margin: 0.15rem 0;
+}
+
+.arch-diagram__connector-line {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, rgb(34 211 238 / 50%), rgb(168 85 247 / 40%));
+  border-radius: 1px;
+}
+
+.arch-diagram__connector-packet {
+  position: absolute;
+  top: 0;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--akshaya-cyan-400);
+  box-shadow: 0 0 8px var(--akshaya-cyan-glow);
+  animation: arch-packet-flow 2.2s ease-in-out infinite;
+}
+
+@keyframes arch-packet-flow {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 0.35rem);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .arch-diagram__flow {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .arch-diagram__stage {
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+  }
+
+  .arch-diagram__node {
+    min-width: 7.5rem;
+  }
+
+  .arch-diagram__connector {
+    flex-direction: row;
+    width: 2.5rem;
+    height: 2px;
+    margin: 0 0.15rem;
+  }
+
+  .arch-diagram__connector-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, rgb(34 211 238 / 50%), rgb(168 85 247 / 40%));
+  }
+
+  .arch-diagram__connector-packet {
+    animation-name: arch-packet-flow-h;
+  }
+}
+
+@keyframes arch-packet-flow-h {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 0.35rem);
+    opacity: 0;
+  }
+}

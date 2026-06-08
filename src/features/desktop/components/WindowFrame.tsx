@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { AKSHAYA_DURATION, AKSHAYA_EASING } from "@/design-system";
 import { cn } from "@/lib/utils";
 import { useWindowDrag } from "../hooks/use-window-drag";
@@ -153,13 +153,18 @@ export function WindowFrame({ window, variant }: WindowFrameProps) {
           {window.title}
         </span>
 
-        <div
-          className={cn(
-            "shrink-0",
-            isApplication ? "w-[5.5rem]" : "w-[3.25rem]",
-          )}
-          aria-hidden
-        />
+        {isApplication ? (
+          <button
+            type="button"
+            className="akshaya-window__close-btn akshaya-focus-ring"
+            onClick={() => closeWindow(window.id)}
+            aria-label={`Close ${window.title}`}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        ) : (
+          <div className="w-[3.25rem] shrink-0" aria-hidden />
+        )}
       </div>
 
       <div

@@ -103,17 +103,44 @@ function parseProject(raw: Record<string, unknown>, index: number): PortfolioEnt
   };
 }
 
+function parseRoleProjects(
+  raw: unknown,
+  label: string,
+): import("@/types").ExperienceRoleProject[] | undefined {
+  if (!Array.isArray(raw)) return undefined;
+  return raw.map((item, i) => {
+    if (!isRecord(item)) {
+      throw new Error(`${label}.roleProjects[${i}]: expected object`);
+    }
+    return {
+      title: requireString(item, "title", `${label}.roleProjects[${i}]`),
+      summary: requireString(item, "summary", `${label}.roleProjects[${i}]`),
+      linkedProjectTitle: optionalString(item, "linkedProjectTitle"),
+    };
+  });
+}
+
 function parseExperience(
   raw: Record<string, unknown>,
   index: number,
 ): PortfolioEntry {
   const label = `Entry[${index}] (experience)`;
+  const technologies = raw.technologies;
+  const outcomes = raw.outcomes;
+  const relatedProjectTitles = raw.relatedProjectTitles;
+
   return {
     type: "experience",
     title: requireString(raw, "title", label),
     company: requireString(raw, "company", label),
     duration: requireString(raw, "duration", label),
     details: requireString(raw, "details", label),
+    technologies: isStringArray(technologies) ? technologies : undefined,
+    outcomes: isStringArray(outcomes) ? outcomes : undefined,
+    relatedProjectTitles: isStringArray(relatedProjectTitles)
+      ? relatedProjectTitles
+      : undefined,
+    roleProjects: parseRoleProjects(raw.roleProjects, label),
   };
 }
 

@@ -48,7 +48,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
   const logSteps = BOOT_STEPS.filter((s) => s.variant !== "title");
   const showTitle = phase === "title";
   const currentVariant = activeStep?.variant ?? "log";
-  const displayName = profile?.name && profile.name !== "YOUR_NAME" ? profile.name : null;
+  const displayName = profile?.name ?? null;
 
   return (
     <motion.div
@@ -120,7 +120,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
                   animate={{ opacity: isLoaded && displayName ? 1 : 0.5 }}
                   transition={{ delay: 0.35, duration: 0.5 }}
                 >
-                  {displayName ?? "Portfolio operating system"}
+                  {displayName ?? "AKSHAYA OS"}
                   {profile?.role && displayName && (
                     <span className="boot-cinematic__role"> · {profile.role}</span>
                   )}

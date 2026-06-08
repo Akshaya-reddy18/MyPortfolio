@@ -9,9 +9,9 @@ export function parseCommaList(value: string): string[] {
 /** Resolve mailto template placeholders from portfolio document */
 export function resolveMailtoTemplate(
   template: string,
-  contactEmail: string,
+  contactEmail?: string,
 ): string {
-  return template.replace(/\{\{contact\.email\}\}/g, contactEmail);
+  return template.replace(/\{\{contact\.email\}\}/g, contactEmail ?? "");
 }
 
 export function buildMailtoUrl(

@@ -223,7 +223,7 @@ function parseContact(raw: unknown): ContactInfo {
   }
 
   return {
-    email: requireString(raw, "email", "contact"),
+    email: optionalString(raw, "email"),
     phone: optionalString(raw, "phone"),
     availability: requireString(raw, "availability", "contact"),
     responseTime: requireString(raw, "responseTime", "contact"),

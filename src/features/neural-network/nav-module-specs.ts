@@ -10,13 +10,13 @@ import {
 import type { NavModuleSpec } from "./types";
 
 export const NAV_MODULE_SPECS: NavModuleSpec[] = [
-  { navId: "projects", appId: "projects", entryType: "project", icon: FolderKanban, layoutWeight: 1.4 },
-  { navId: "skills", appId: "skills", entryType: "skill", icon: Layers },
-  { navId: "experience", appId: "experience", entryType: "experience", icon: Briefcase },
-  { navId: "achievements", appId: "profile", entryType: "achievement", icon: Award },
-  { navId: "education", appId: "profile", entryType: "education", icon: BookOpen },
-  { navId: "resume", appId: "resume", icon: FileText },
-  { navId: "contact", appId: "contact", icon: Mail },
+  { navId: "projects", appId: "projects", entryType: "project", icon: FolderKanban, tier: "primary" },
+  { navId: "skills", appId: "skills", entryType: "skill", icon: Layers, tier: "primary" },
+  { navId: "experience", appId: "experience", entryType: "experience", icon: Briefcase, tier: "primary" },
+  { navId: "achievements", appId: "profile", entryType: "achievement", icon: Award, tier: "tertiary", profileSection: "achievements" },
+  { navId: "education", appId: "profile", entryType: "education", icon: BookOpen, tier: "tertiary", profileSection: "education" },
+  { navId: "resume", appId: "resume", icon: FileText, tier: "tertiary" },
+  { navId: "contact", appId: "contact", icon: Mail, tier: "tertiary" },
 ];
 
 export const NEURAL_CORE_NODE_ID = "neural-core";

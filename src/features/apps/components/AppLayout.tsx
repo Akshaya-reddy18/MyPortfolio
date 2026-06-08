@@ -20,11 +20,12 @@ interface AppSectionProps {
   eyebrow?: string;
   children: ReactNode;
   className?: string;
+  id?: string;
 }
 
-export function AppSection({ title, eyebrow, children, className }: AppSectionProps) {
+export function AppSection({ title, eyebrow, children, className, id }: AppSectionProps) {
   return (
-    <section className={cn("app-section", className)}>
+    <section id={id} className={cn("app-section", className)}>
       {eyebrow && <p className="app-section__eyebrow">{eyebrow}</p>}
       <h2 className="app-section__title">{title}</h2>
       <div className="app-section__body">{children}</div>

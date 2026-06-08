@@ -122,7 +122,7 @@ export function buildKnowledgeBase(
       "Contact",
       "Contact Information",
       [
-        `Email: ${document.contact.email}`,
+        document.contact.email ? `Email: ${document.contact.email}` : "",
         document.contact.phone ? `Phone: ${document.contact.phone}` : "",
         `Availability: ${document.contact.availability}`,
         `Response time: ${document.contact.responseTime}`,

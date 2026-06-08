@@ -27,12 +27,22 @@ export interface ProjectEntry extends PortfolioEntryBase {
   solutions?: string;
 }
 
+export interface ExperienceRoleProject {
+  title: string;
+  summary: string;
+  linkedProjectTitle?: string;
+}
+
 export interface ExperienceEntry extends PortfolioEntryBase {
   type: "experience";
   title: string;
   company: string;
   duration: string;
   details: string;
+  technologies?: string[];
+  outcomes?: string[];
+  relatedProjectTitles?: string[];
+  roleProjects?: ExperienceRoleProject[];
 }
 
 export interface SkillEntry extends PortfolioEntryBase {

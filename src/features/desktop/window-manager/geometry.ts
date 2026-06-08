@@ -2,7 +2,7 @@ import type { DesktopInsets, WindowBounds } from "../types";
 
 export const TASKBAR_HEIGHT = 44;
 
-export const TOPBAR_HEIGHT = 36;
+export const TOPBAR_HEIGHT = 50;
 
 export const WINDOW_TITLEBAR_HEIGHT = 40;
 

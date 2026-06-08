@@ -6,8 +6,9 @@ interface NeuralAmbientBackgroundProps {
   className?: string;
 }
 
-const PARTICLE_COUNT = 18;
-const PACKET_COUNT = 6;
+const PARTICLE_COUNT = 8;
+const PACKET_COUNT = 2;
+const NETWORK_LINE_COUNT = 4;
 
 export function NeuralAmbientBackground({
   active = true,
@@ -17,11 +18,11 @@ export function NeuralAmbientBackground({
     () =>
       Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
         id: i,
-        left: `${(i * 17 + 7) % 100}%`,
-        top: `${(i * 23 + 11) % 100}%`,
-        delay: `${(i % 7) * 0.7}s`,
-        duration: `${5 + (i % 5)}s`,
-        size: i % 3 === 0 ? "0.35rem" : "0.2rem",
+        left: `${(i * 19 + 9) % 100}%`,
+        top: `${(i * 27 + 13) % 100}%`,
+        delay: `${(i % 6) * 0.9}s`,
+        duration: `${6 + (i % 4)}s`,
+        size: i % 4 === 0 ? "0.28rem" : "0.16rem",
       })),
     [],
   );
@@ -30,9 +31,22 @@ export function NeuralAmbientBackground({
     () =>
       Array.from({ length: PACKET_COUNT }, (_, i) => ({
         id: i,
-        top: `${15 + i * 14}%`,
-        delay: `${i * 1.4}s`,
-        duration: `${6 + i}s`,
+        top: `${22 + i * 28}%`,
+        delay: `${i * 2.1}s`,
+        duration: `${7 + i * 1.5}s`,
+      })),
+    [],
+  );
+
+  const networkLines = useMemo(
+    () =>
+      Array.from({ length: NETWORK_LINE_COUNT }, (_, i) => ({
+        id: i,
+        left: `${12 + i * 22}%`,
+        top: `${8 + (i % 2) * 35}%`,
+        width: `${28 + (i % 3) * 12}%`,
+        rotate: -18 + i * 12,
+        delay: `${i * 0.8}s`,
       })),
     [],
   );
@@ -46,7 +60,25 @@ export function NeuralAmbientBackground({
       )}
       aria-hidden
     >
+      <div className="neural-ambient__depth neural-ambient__depth--a" />
+      <div className="neural-ambient__depth neural-ambient__depth--b" />
+      <div className="neural-ambient__grid" />
       <div className="neural-ambient__pathways" />
+
+      {networkLines.map((line) => (
+        <span
+          key={line.id}
+          className="neural-ambient__network-line"
+          style={{
+            left: line.left,
+            top: line.top,
+            width: line.width,
+            transform: `rotate(${line.rotate}deg)`,
+            animationDelay: line.delay,
+          }}
+        />
+      ))}
+
       <div className="neural-ambient__glow neural-ambient__glow--left" />
       <div className="neural-ambient__glow neural-ambient__glow--right" />
 
@@ -78,7 +110,6 @@ export function NeuralAmbientBackground({
       ))}
 
       <div className="neural-ambient__signal neural-ambient__signal--a" />
-      <div className="neural-ambient__signal neural-ambient__signal--b" />
     </div>
   );
 }

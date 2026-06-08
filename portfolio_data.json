@@ -6,27 +6,27 @@
   },
   "neuralCore": {
     "profile": {
-      "name": "YOUR_NAME",
+      "name": "Akshaya Reddy",
       "role": "ML Engineer",
       "headline": "B.Tech in Computer Science (AI & ML)",
-      "tagline": "Neural Core · Configure in portfolio_data.json",
-      "location": "YOUR_LOCATION",
+      "tagline": "AI Systems · Machine Learning · Full-Stack Engineering",
+      "location": "Hyderabad, India",
       "timezone": "Asia/Kolkata",
       "avatar": {
         "src": "/MYfaceInPortfolio.png",
-        "alt": "Profile avatar"
+        "alt": "Akshaya Reddy — ML Engineer"
       },
       "status": {
         "label": "Available for opportunities",
         "state": "available"
       },
-      "bio": "B.Tech in Computer Science (AI & ML), CGPA: 9.42, Vignan Institute of Technology and Science."
+      "bio": "ML Engineer building scalable AI systems, RAG pipelines, and full-stack products. B.Tech in Computer Science (AI & ML), CGPA 9.42, Vignan Institute of Technology and Science."
     },
     "hero": {
       "eyebrow": "Neural OS",
-      "title": "AI Systems Portfolio",
-      "subtitle": "ML Engineer · Full-Stack · MLOps",
-      "description": "Explore projects, experience, and skills through a JSON-driven neural operating system.",
+      "title": "Akshaya Reddy",
+      "subtitle": "ML Engineer · AI Systems · Full-Stack",
+      "description": "Interactive portfolio showcasing RAG systems, healthcare ML, full-stack platforms, and production engineering work.",
       "highlights": [
         "6 featured projects",
         "7 skill domains",
@@ -45,38 +45,48 @@
     },
     "currentFocus": {
       "title": "Current Focus",
-      "summary": "Update neuralCore.currentFocus in portfolio_data.json",
+      "summary": "Shipping production-grade AI systems and deepening full-stack engineering craft.",
       "items": [
         {
-          "label": "Configure profile",
-          "detail": "Replace YOUR_NAME, contact, and social links",
+          "label": "RAG & LLM Systems",
+          "detail": "ResearchPilot AI — retrieval pipelines, embeddings, and contextual generation",
           "priority": 1
+        },
+        {
+          "label": "Healthcare ML",
+          "detail": "PulseConnect — demand forecasting and donor matching with multi-agent design",
+          "priority": 2
+        },
+        {
+          "label": "Full-Stack Products",
+          "detail": "StartupConnect & MarketNest — React, TypeScript, and scalable backends",
+          "priority": 3
         }
       ]
     }
   },
   "contact": {
-    "email": "you@example.com",
-    "availability": "Open to opportunities",
+    "availability": "Open to internships and full-time roles",
     "responseTime": "Within 48 hours",
     "preferredChannels": [
-      "email"
+      "linkedin",
+      "github"
     ]
   },
   "social": [
     {
       "id": "github",
       "platform": "GitHub",
-      "url": "https://github.com/YOUR_HANDLE",
-      "handle": "@YOUR_HANDLE",
+      "url": "https://github.com/Akshaya-reddy18",
+      "handle": "@Akshaya-reddy18",
       "icon": "github",
       "primary": true
     },
     {
       "id": "linkedin",
       "platform": "LinkedIn",
-      "url": "https://linkedin.com/in/YOUR_HANDLE",
-      "handle": "YOUR_HANDLE",
+      "url": "https://www.linkedin.com/in/akshaya-kondamwar18/",
+      "handle": "akshaya-kondamwar18",
       "icon": "linkedin"
     }
   ],
@@ -96,7 +106,7 @@
     "id": "neural-assistant",
     "name": "NEURAL",
     "persona": "Portfolio copilot for ML engineering work",
-    "greeting": "Neural assistant online. Ask about projects, skills, or experience.",
+    "greeting": "NEURAL online. Ask about Akshaya's projects, ML stack, or experience.",
     "disclaimer": "Frontend-only assistant — responses use loaded portfolio data.",
     "suggestedPrompts": [
       {
@@ -119,12 +129,12 @@
   },
   "terminal": {
     "shell": {
-      "user": "neural",
-      "host": "portfolio",
+      "user": "akshaya",
+      "host": "neural-os",
       "promptSuffix": "~$"
     },
     "welcomeLines": [
-      "Neural OS 2.0.0",
+      "AKSHAYA OS 2.0.0 — Akshaya Reddy",
       "Type 'help' to list commands."
     ],
     "commands": [
@@ -321,7 +331,7 @@
       "description": "AI-driven blood demand forecasting and donor matching system.",
       "impact": "Reduced emergency response time by 40% and improved donor matching efficiency by 30%.",
       "details": "Designed a multi-agent system using real-time Firebase streams. Implemented ensemble regression models with hyperparameter tuning for accurate predictions.",
-      "category": "AI + Healthcare"
+      "category": "Healthcare AI"
     },
     {
       "type": "project",
@@ -401,28 +411,68 @@
       "details": "Imported and transformed sales data from SQL Server using Power Query. Designed interactive dashboards with KPI cards, revenue trends, category-wise sales analysis, top-selling pizzas, order patterns, and customer insights. Implemented DAX measures for revenue, average order value, total orders, and sales growth analysis.",
       "challenges": "Handling data inconsistencies and optimizing dashboard performance for large datasets.",
       "solutions": "Applied data cleaning and transformation techniques in Power Query and created optimized DAX calculations for faster reporting.",
-      "category": "Data Analytics"
+      "category": "Analytics"
     },
     {
       "type": "experience",
       "title": "Full-Stack Developer Intern",
       "company": "Nirvaha Wellness LLP",
       "duration": "Oct 2025 – Dec 2025",
-      "details": "Developed full-stack applications using React, TypeScript, Node.js, and MongoDB. Built 10+ REST APIs with JWT authentication, reducing latency by 30% and improving security."
+      "details": "Developed full-stack applications using React, TypeScript, Node.js, and MongoDB. Built 10+ REST APIs with JWT authentication, reducing latency by 30% and improving security.",
+      "technologies": ["React", "TypeScript", "Node.js", "MongoDB", "REST APIs", "JWT"],
+      "outcomes": [
+        "Built 10+ production REST APIs with JWT authentication",
+        "Reduced API latency by 30%",
+        "Improved application security across full-stack modules"
+      ],
+      "relatedProjectTitles": ["StartupConnect", "MarketNest"],
+      "roleProjects": [
+        {
+          "title": "Full-Stack API Platform",
+          "summary": "JWT-secured REST APIs powering wellness application workflows"
+        }
+      ]
     },
     {
       "type": "experience",
       "title": "AI/ML Intern",
       "company": "Cothon Solutions",
       "duration": "Mar 2025 – May 2025",
-      "details": "Built an XGBoost airfare prediction model achieving 98.76% R². Developed a CNN-based deepfake detection system with 84.67% accuracy and 0.91 ROC-AUC on 10,000+ images."
+      "details": "Built an XGBoost airfare prediction model achieving 98.76% R². Developed a CNN-based deepfake detection system with 84.67% accuracy and 0.91 ROC-AUC on 10,000+ images.",
+      "technologies": ["Python", "XGBoost", "TensorFlow", "Keras", "CNN", "Scikit-learn"],
+      "outcomes": [
+        "98.76% R² on airfare prediction model",
+        "84.67% accuracy on deepfake detection (10,000+ images)",
+        "0.91 ROC-AUC on binary classification pipeline"
+      ],
+      "roleProjects": [
+        {
+          "title": "Airfare Prediction System",
+          "summary": "XGBoost regression model achieving 98.76% R² for fare forecasting"
+        },
+        {
+          "title": "Deepfake Detection System",
+          "summary": "CNN-based classifier with 84.67% accuracy and 0.91 ROC-AUC"
+        }
+      ]
     },
     {
       "type": "experience",
       "title": "AI/ML Intern",
       "company": "Edunet Foundation (Microsoft, SAP & AICTE)",
       "duration": "Jan 2025 – Feb 2025",
-      "details": "Developed SVM-based disease prediction models trained on 5000+ records achieving 85% accuracy. Built real-time dashboards using Streamlit."
+      "details": "Developed SVM-based disease prediction models trained on 5000+ records achieving 85% accuracy. Built real-time dashboards using Streamlit.",
+      "technologies": ["Python", "SVM", "Scikit-learn", "Streamlit", "Pandas"],
+      "outcomes": [
+        "85% accuracy on disease prediction across 5,000+ records",
+        "Delivered real-time Streamlit dashboards for clinical insights"
+      ],
+      "roleProjects": [
+        {
+          "title": "Disease Prediction System",
+          "summary": "SVM classifier trained on 5,000+ medical records with 85% accuracy"
+        }
+      ]
     },
     {
       "type": "skill",

@@ -1,18 +1,26 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import { memo } from "react";
 import { cn } from "@/lib/utils";
+import { useMagnetic } from "@/hooks";
 import type { ProjectClusterNodeData } from "../types";
 
 function ProjectClusterNodeComponent({ data, selected }: NodeProps) {
   const nodeData = data as ProjectClusterNodeData;
+  const { ref, position } = useMagnetic(90, 0.4);
 
   return (
     <div
+      ref={ref}
       className={cn(
         "neural-flow-cluster",
         nodeData.isActive && "neural-flow-cluster--active",
         selected && "neural-flow-cluster--selected",
       )}
+      style={{
+        "--assemble-delay": `${nodeData.assemblyDelayMs ?? 0}ms`,
+        "--mx": `${position.x}px`,
+        "--my": `${position.y}px`,
+      } as React.CSSProperties}
       role="button"
       tabIndex={0}
       aria-label={`${nodeData.category}, ${nodeData.projectCount} projects`}
